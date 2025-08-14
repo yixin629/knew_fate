@@ -1,0 +1,11 @@
+<maui:MauiWinUIApplication
+    x:Class="KnewFate.WinUI.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:maui="using:Microsoft.Maui">
+    <Application.Resources>
+        <!-- Windows-specific styles dictionary was referenced but file not found (Platforms/Windows/Styles/App.xaml).
+             Commented out to prevent XAML load failure causing silent process exit. Add the file back then restore reference. -->
+        <!-- <ResourceDictionary Source="ms-appx:///Platforms/Windows/Styles/App.xaml" /> -->
+    </Application.Resources>
+</maui:MauiWinUIApplication>

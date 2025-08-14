@@ -1,0 +1,10 @@
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace KnewFate.ViewModels
+{
+    public partial class BaseViewModel : ObservableObject
+    {
+        [ObservableProperty]
+        private bool isBusy;
+    }
+}

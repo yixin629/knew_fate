@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-stylesheet href="../debug.css"?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Light Theme Colors -->
+    <Color x:Key="Primary">#512BD4</Color>
+    <Color x:Key="Secondary">#DFD8F7</Color>
+    <Color x:Key="Tertiary">#2B0B98</Color>
+    <Color x:Key="White">White</Color>
+    <Color x:Key="Black">Black</Color>
+    <Color x:Key="Gray100">#E1E1E1</Color>
+    <Color x:Key="Gray200">#C8C8C8</Color>
+    <Color x:Key="Gray300">#ACACAC</Color>
+    <Color x:Key="Gray400">#919191</Color>
+    <Color x:Key="Gray500">#6E6E6E</Color>
+    <Color x:Key="Gray600">#404040</Color>
+    <Color x:Key="Gray900">#212121</Color>
+    <Color x:Key="Gray950">#141414</Color>
+
+    <!-- App-specific Colors -->
+    <Color x:Key="Mystic">#663399</Color>
+    <Color x:Key="Cosmic">#4B0082</Color>
+    <Color x:Key="Fortune">#DAA520</Color>
+    <Color x:Key="Destiny">#8B4513</Color>
+    <Color x:Key="Love">#FF69B4</Color>
+    <Color x:Key="Career">#20B2AA</Color>
+    <Color x:Key="Wisdom">#9370DB</Color>
+    <Color x:Key="Success">#32CD32</Color>
+    <Color x:Key="Warning">#FFA500</Color>
+    <Color x:Key="Danger">#FF6347</Color>
+
+    <!-- Tarot Colors -->
+    <Color x:Key="MajorArcana">#8B0000</Color>
+    <Color x:Key="Wands">#FF4500</Color>
+    <Color x:Key="Cups">#4169E1</Color>
+    <Color x:Key="Swords">#FFD700</Color>
+    <Color x:Key="Pentacles">#228B22</Color>
+
+    <!-- Chinese Elements -->
+    <Color x:Key="Wood">#228B22</Color>
+    <Color x:Key="Fire">#DC143C</Color>
+    <Color x:Key="Earth">#DEB887</Color>
+    <Color x:Key="Metal">#C0C0C0</Color>
+    <Color x:Key="Water">#4682B4</Color>
+
+    <!-- Astrology Signs -->
+    <Color x:Key="FireSigns">#FF4500</Color>
+    <Color x:Key="EarthSigns">#8B4513</Color>
+    <Color x:Key="AirSigns">#87CEEB</Color>
+    <Color x:Key="WaterSigns">#4682B4</Color>
+
+    <!-- Gradients -->
+    <LinearGradientBrush x:Key="MysticGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="{StaticResource Primary}" Offset="0.0" />
+        <GradientStop Color="{StaticResource Tertiary}" Offset="1.0" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="FortuneGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="{StaticResource Fortune}" Offset="0.0" />
+        <GradientStop Color="{StaticResource Destiny}" Offset="1.0" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="LoveGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="{StaticResource Love}" Offset="0.0" />
+        <GradientStop Color="{StaticResource Tertiary}" Offset="1.0" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="CareerGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="{StaticResource Career}" Offset="0.0" />
+        <GradientStop Color="{StaticResource Primary}" Offset="1.0" />
+    </LinearGradientBrush>
+
+    <!-- Shadow Effects -->
+    <Shadow x:Key="CardShadow"
+            Brush="Black"
+            Opacity="0.1"
+            Radius="8"
+            Offset="0,4" />
+
+    <Shadow x:Key="ButtonShadow"
+            Brush="Black"
+            Opacity="0.15"
+            Radius="4"
+            Offset="0,2" />
+
+    <Shadow x:Key="HeaderShadow"
+            Brush="Black"
+            Opacity="0.2"
+            Radius="12"
+            Offset="0,6" />
+
+</ResourceDictionary>

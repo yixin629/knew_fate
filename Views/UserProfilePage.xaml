@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="KnewFate.Views.UserProfilePage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:KnewFate.ViewModels"
+             xmlns:models="clr-namespace:KnewFate.Models"
+             x:DataType="vm:UserProfileViewModel"
+             Title="{Binding DisplayName}">
+
+    <ScrollView>
+        <StackLayout Padding="0" Spacing="0">
+            
+            <!-- Profile Header -->
+            <Grid HeightRequest="400" BackgroundColor="{DynamicResource Gray100}">
+                <!-- Background Image Placeholder -->
+                <Label Text="📸"
+                      FontSize="80"
+                      HorizontalOptions="Center"
+                      VerticalOptions="Center"
+                      TextColor="{DynamicResource Gray400}" />
+
+                <!-- Profile Image -->
+                <Border WidthRequest="120"
+                       HeightRequest="120"
+                       BackgroundColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="End"
+                       Margin="0,0,0,20"
+                       Stroke="{DynamicResource Primary}"
+                       StrokeThickness="3">
+                    <Border.StrokeShape>
+                        <Ellipse />
+                    </Border.StrokeShape>
+                    
+                    <Label Text="👤"
+                          FontSize="40"
+                          HorizontalOptions="Center"
+                          VerticalOptions="Center"
+                          TextColor="{DynamicResource Gray500}" />
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnImageTapped" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <!-- Online Status -->
+                <Ellipse Fill="LimeGreen"
+                        WidthRequest="20"
+                        HeightRequest="20"
+                        HorizontalOptions="Center"
+                        VerticalOptions="End"
+                        Margin="45,0,0,30"
+                        IsVisible="{Binding IsOnline}" />
+
+                <!-- Premium Badge -->
+                <Border BackgroundColor="Gold"
+                       HorizontalOptions="End"
+                       VerticalOptions="Start"
+                       Margin="20,20,20,0"
+                       Padding="8,4"
+                       IsVisible="{Binding IsPremium}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12" />
+                    </Border.StrokeShape>
+                    <Label Text="👑 VIP会员"
+                          FontSize="12"
+                          TextColor="White"
+                          FontAttributes="Bold" />
+                </Border>
+            </Grid>
+
+            <!-- Basic Info -->
+            <StackLayout Padding="20" BackgroundColor="White">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackLayout Grid.Column="0">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding DisplayName}"
+                                  FontSize="24"
+                                  FontAttributes="Bold"
+                                  TextColor="{DynamicResource Gray900}" />
+                            <Label Text="{Binding Age, StringFormat=', {0}'}"
+                                  FontSize="20"
+                                  TextColor="{DynamicResource Gray600}"
+                                  Margin="5,0,0,0" />
+                        </StackLayout>
+                        
+                        <Label Text="{Binding Location}"
+                              FontSize="16"
+                              TextColor="{DynamicResource Gray600}" />
+                        
+                        <Label Text="{Binding LastSeenText}"
+                              FontSize="14"
+                              TextColor="{DynamicResource Gray500}"
+                              Margin="0,5,0,0" />
+                    </StackLayout>
+
+                    <!-- Compatibility Score -->
+                    <Border Grid.Column="1"
+                           BackgroundColor="{DynamicResource Primary}"
+                           Padding="15,10"
+                           VerticalOptions="Start">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20" />
+                        </Border.StrokeShape>
+                        
+                        <StackLayout>
+                            <Label Text="💖"
+                                  FontSize="20"
+                                  HorizontalOptions="Center" />
+                            <Label Text="{Binding CompatibilityScore, StringFormat='{0:P0}'}"
+                                  FontSize="18"
+                                  FontAttributes="Bold"
+                                  TextColor="White"
+                                  HorizontalOptions="Center" />
+                            <Label Text="匹配度"
+                                  FontSize="12"
+                                  TextColor="White"
+                                  HorizontalOptions="Center" />
+                        </StackLayout>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCompatibilityTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+                </Grid>
+
+                <!-- Bio -->
+                <Label Text="{Binding Bio}"
+                      FontSize="16"
+                      TextColor="{DynamicResource Gray700}"
+                      Margin="0,15,0,0"
+                      IsVisible="{Binding HasBio}" />
+            </StackLayout>
+
+            <!-- Zodiac Information -->
+            <Border BackgroundColor="White" Margin="0,10,0,0" Padding="20">
+                <StackLayout>
+                    <Label Text="🌟 星座信息"
+                          FontSize="18"
+                          FontAttributes="Bold"
+                          TextColor="{DynamicResource Primary}"
+                          Margin="0,0,0,10" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackLayout Grid.Column="0">
+                            <Label Text="西方星座"
+                                  FontSize="14"
+                                  TextColor="{DynamicResource Gray600}" />
+                            <Label Text="{Binding WesternZodiac}"
+                                  FontSize="16"
+                                  FontAttributes="Bold"
+                                  TextColor="{DynamicResource Gray900}" />
+                        </StackLayout>
+
+                        <StackLayout Grid.Column="1">
+                            <Label Text="生肖"
+                                  FontSize="14"
+                                  TextColor="{DynamicResource Gray600}" />
+                            <Label Text="{Binding ChineseZodiacText}"
+                                  FontSize="16"
+                                  FontAttributes="Bold"
+                                  TextColor="{DynamicResource Gray900}" />
+                        </StackLayout>
+                    </Grid>
+
+                    <StackLayout Margin="0,10,0,0">
+                        <Label Text="性格特点"
+                              FontSize="14"
+                              TextColor="{DynamicResource Gray600}" />
+                        <Label Text="{Binding PersonalityTraits}"
+                              FontSize="14"
+                              TextColor="{DynamicResource Gray700}" />
+                    </StackLayout>
+                </StackLayout>
+            </Border>
+
+            <!-- Interests & Languages -->
+            <Border BackgroundColor="White" Margin="0,10,0,0" Padding="20">
+                <StackLayout>
+                    <Label Text="🎯 兴趣爱好"
+                          FontSize="18"
+                          FontAttributes="Bold"
+                          TextColor="{DynamicResource Primary}"
+                          Margin="0,0,0,10" />
+
+                    <CollectionView ItemsSource="{Binding Interests}"
+                                   HeightRequest="40">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5" />
+                        </CollectionView.ItemsLayout>
+                        
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BackgroundColor="{DynamicResource Gray100}"
+                                       Padding="10,5">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="15" />
+                                    </Border.StrokeShape>
+                                    <Label Text="{Binding}"
+                                          FontSize="12"
+                                          TextColor="{DynamicResource Primary}" />
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <StackLayout Orientation="Horizontal" Margin="0,15,0,0">
+                        <Label Text="🌍 语言："
+                              FontSize="14"
+                              TextColor="{DynamicResource Gray600}" />
+                        <Label Text="{Binding Languages}"
+                              FontSize="14"
+                              TextColor="{DynamicResource Gray700}" />
+                    </StackLayout>
+                </StackLayout>
+            </Border>
+
+            <!-- Action Buttons -->
+            <Grid Padding="20" BackgroundColor="White" Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0"
+                       Text="💌"
+                       FontSize="24"
+                       BackgroundColor="{DynamicResource Primary}"
+                       TextColor="White"
+                       Command="{Binding SendMessageCommand}"
+                       IsEnabled="{Binding CanSendMessage}"
+                       CornerRadius="25">
+                </Button>
+
+                <Button Grid.Column="1"
+                       Text="💖"
+                       FontSize="28"
+                       BackgroundColor="Red"
+                       TextColor="White"
+                       Command="{Binding LikeCommand}"
+                       Margin="5,0"
+                       CornerRadius="25">
+                </Button>
+
+                <Button Grid.Column="2"
+                       Text="⭐"
+                       FontSize="24"
+                       BackgroundColor="Gold"
+                       TextColor="White"
+                       Command="{Binding SuperLikeCommand}"
+                       CornerRadius="25">
+                </Button>
+            </Grid>
+
+            <!-- Gift Section -->
+            <Border BackgroundColor="White" Margin="0,10,0,0" Padding="20">
+                <StackLayout>
+                    <Label Text="🎁 送礼物"
+                          FontSize="18"
+                          FontAttributes="Bold"
+                          TextColor="{DynamicResource Primary}"
+                          Margin="0,0,0,10" />
+
+                    <CollectionView ItemsSource="{Binding AvailableGifts}"
+                                   HeightRequest="80">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
+                        </CollectionView.ItemsLayout>
+                        
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:VirtualGift">
+                                <Border BackgroundColor="{DynamicResource Gray100}"
+                                       Padding="10"
+                                       WidthRequest="60"
+                                       HeightRequest="60">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="10" />
+                                    </Border.StrokeShape>
+                                    
+                                    <StackLayout>
+                                        <Label Text="{Binding Name}"
+                                              FontSize="20"
+                                              HorizontalOptions="Center" />
+                                        <Label Text="{Binding CreditCost, StringFormat='{0}💎'}"
+                                              FontSize="10"
+                                              HorizontalOptions="Center"
+                                              TextColor="{DynamicResource Primary}" />
+                                    </StackLayout>
+
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:UserProfileViewModel}}, Path=SendGiftCommand}"
+                                                            CommandParameter="{Binding}" />
+                                    </Border.GestureRecognizers>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Border>
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                              IsRunning="{Binding IsBusy}"
+                              Color="{DynamicResource Primary}"
+                              Margin="20" />
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

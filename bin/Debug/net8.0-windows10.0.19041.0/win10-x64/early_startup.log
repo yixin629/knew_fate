@@ -1,0 +1,5 @@
+2025-08-14T16:23:38.8262465+10:00 [MauiProgram] === CreateMauiApp entered ===
+2025-08-14T16:23:38.8273188+10:00 [MauiProgram] Process: 13580 PID, FrameworkDescription=.NET 8.0.19
+2025-08-14T16:23:39.0215454+10:00 [MauiProgram] Builder created and fonts configured
+2025-08-14T16:23:39.0239607+10:00 [MauiProgram] Logging service added (DEBUG)
+2025-08-14T16:23:39.3134121+10:00 [MauiProgram] MauiApp built successfully

@@ -1,0 +1,368 @@
+using System.Collections.ObjectModel;
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using KnewFate.Models;
+using KnewFate.Services;
+
+namespace KnewFate.ViewModels;
+
+public partial class UserProfileViewModel : BaseViewModel
+{
+    private readonly ISocialService _socialService;
+    private readonly IZodiacService _zodiacService;
+
+    [ObservableProperty]
+    private int userId;
+
+    [ObservableProperty]
+    private string displayName = string.Empty;
+
+    [ObservableProperty]
+    private int age;
+
+    [ObservableProperty]
+    private string location = string.Empty;
+
+    [ObservableProperty]
+    private string bio = string.Empty;
+
+    [ObservableProperty]
+    private bool hasBio = false;
+
+    [ObservableProperty]
+    private bool isOnline = false;
+
+    [ObservableProperty]
+    private bool isPremium = false;
+
+    [ObservableProperty]
+    private string lastSeenText = string.Empty;
+
+    [ObservableProperty]
+    private double compatibilityScore = 0.0;
+
+    [ObservableProperty]
+    private string westernZodiac = string.Empty;
+
+    [ObservableProperty]
+    private string chineseZodiacText = string.Empty;
+
+    [ObservableProperty]
+    private string personalityTraits = string.Empty;
+
+    [ObservableProperty]
+    private string languages = string.Empty;
+
+    [ObservableProperty]
+    private bool canSendMessage = false;
+
+    [ObservableProperty]
+    private ObservableCollection<string> interests = new();
+
+    [ObservableProperty]
+    private ObservableCollection<VirtualGift> availableGifts = new();
+
+    public ICommand SendMessageCommand { get; }
+    public ICommand LikeCommand { get; }
+    public ICommand SuperLikeCommand { get; }
+    public ICommand SendGiftCommand { get; }
+    public ICommand ShowDetailedCompatibilityCommand { get; }
+
+    public UserProfileViewModel(ISocialService socialService, IZodiacService zodiacService)
+    {
+        _socialService = socialService;
+        _zodiacService = zodiacService;
+
+        SendMessageCommand = new AsyncRelayCommand(SendMessageAsync);
+        LikeCommand = new AsyncRelayCommand(LikeUserAsync);
+        SuperLikeCommand = new AsyncRelayCommand(SuperLikeUserAsync);
+        SendGiftCommand = new AsyncRelayCommand<VirtualGift>(SendGiftAsync);
+        ShowDetailedCompatibilityCommand = new AsyncRelayCommand(ShowDetailedCompatibilityAsync);
+
+        LoadAvailableGifts();
+    }
+
+    public async Task LoadUserProfileAsync(int targetUserId)
+    {
+        if (IsBusy) return;
+
+        try
+        {
+            IsBusy = true;
+            UserId = targetUserId;
+
+            // Load user profile
+            var userProfile = await _socialService.GetUserProfileAsync(targetUserId);
+            var zodiacProfile = await _zodiacService.GetZodiacProfileAsync(targetUserId);
+
+            // Update properties
+            DisplayName = userProfile.DisplayName;
+            Age = userProfile.Age;
+            Location = $"{userProfile.City}, {userProfile.Country}";
+            Bio = userProfile.Bio;
+            HasBio = !string.IsNullOrEmpty(userProfile.Bio);
+            IsOnline = userProfile.IsOnline;
+            IsPremium = userProfile.IsPremium;
+            Languages = userProfile.Languages;
+
+            // Format last seen
+            LastSeenText = FormatLastSeen(userProfile.LastSeen);
+
+            // Zodiac information
+            WesternZodiac = GetZodiacDisplayName(zodiacProfile.WesternSign);
+            ChineseZodiacText = GetChineseZodiacDisplayName(zodiacProfile.ChineseSign);
+            PersonalityTraits = zodiacProfile.Personality;
+
+            // Load interests
+            Interests.Clear();
+            if (!string.IsNullOrEmpty(userProfile.Interests))
+            {
+                var interestList = System.Text.Json.JsonSerializer.Deserialize<List<string>>(userProfile.Interests) ?? new List<string>();
+                foreach (var interest in interestList)
+                {
+                    Interests.Add(interest);
+                }
+            }
+
+            // Calculate compatibility
+            var currentUserId = await GetCurrentUserIdAsync();
+            var compatibility = await _socialService.GetCompatibilityReportAsync(currentUserId, targetUserId);
+            CompatibilityScore = compatibility.OverallScore;
+
+            // Check messaging permissions
+            CanSendMessage = await _socialService.CanSendMessageAsync(currentUserId, targetUserId);
+        }
+        catch (Exception ex)
+        {
+            await ShowErrorAsync("加载用户资料失败", ex.Message);
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+
+    private async void LoadAvailableGifts()
+    {
+        try
+        {
+            var gifts = await _socialService.GetAvailableGiftsAsync();
+            AvailableGifts.Clear();
+            
+            // Show only the first 5 gifts for the profile page
+            foreach (var gift in gifts.Take(5))
+            {
+                AvailableGifts.Add(gift);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Log error but don't show to user as this is not critical
+            System.Diagnostics.Debug.WriteLine($"Failed to load gifts: {ex.Message}");
+        }
+    }
+
+    private async Task SendMessageAsync()
+    {
+        if (!CanSendMessage)
+        {
+            await Shell.Current.DisplayAlert("无法发消息", "您需要与对方互相喜欢或成为VIP会员才能发送消息", "确定");
+            return;
+        }
+
+        await Shell.Current.GoToAsync($"chat?userId={UserId}");
+    }
+
+    private async Task LikeUserAsync()
+    {
+        try
+        {
+            var currentUserId = await GetCurrentUserIdAsync();
+            var success = await _socialService.LikeUserAsync(currentUserId, UserId);
+
+            if (success)
+            {
+                // Check if it's a mutual match
+                var isMutual = await _socialService.IsMutualMatchAsync(currentUserId, UserId);
+                
+                if (isMutual)
+                {
+                    await Shell.Current.DisplayAlert("匹配成功！", "你们互相喜欢，现在可以开始聊天了！", "太棒了");
+                    CanSendMessage = true;
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("点赞成功", "已向对方发送喜欢信号", "确定");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await ShowErrorAsync("点赞失败", ex.Message);
+        }
+    }
+
+    private async Task SuperLikeUserAsync()
+    {
+        try
+        {
+            var currentUserId = await GetCurrentUserIdAsync();
+            
+            // Check if user can super like
+            var canSuperLike = await _socialService.CanAccessFeatureAsync(currentUserId, "SuperLike");
+            
+            if (!canSuperLike)
+            {
+                var result = await Shell.Current.DisplayAlert(
+                    "超级喜欢", 
+                    "您需要VIP会员或更多积分才能使用超级喜欢功能。是否查看会员套餐？", 
+                    "查看", "取消");
+                
+                if (result)
+                {
+                    await Shell.Current.GoToAsync("premium");
+                }
+                return;
+            }
+
+            var success = await _socialService.SuperLikeUserAsync(currentUserId, UserId);
+
+            if (success)
+            {
+                await Shell.Current.DisplayAlert("超级喜欢发送成功！", "对方会优先看到您的超级喜欢", "确定");
+            }
+        }
+        catch (Exception ex)
+        {
+            await ShowErrorAsync("超级喜欢失败", ex.Message);
+        }
+    }
+
+    private async Task SendGiftAsync(VirtualGift gift)
+    {
+        if (gift == null) return;
+
+        try
+        {
+            var currentUserId = await GetCurrentUserIdAsync();
+            var credits = await _socialService.GetUserCreditsAsync(currentUserId);
+
+            if (credits < gift.CreditCost)
+            {
+                var result = await Shell.Current.DisplayAlert(
+                    "积分不足", 
+                    $"发送{gift.Name}需要{gift.CreditCost}积分，您当前有{credits}积分。是否购买积分？", 
+                    "购买", "取消");
+                
+                if (result)
+                {
+                    await Shell.Current.GoToAsync("credits");
+                }
+                return;
+            }
+
+            // Show gift message input
+            var message = await Shell.Current.DisplayPromptAsync("发送礼物", $"给{DisplayName}发送{gift.Name}", "发送", "取消", "说点什么...", maxLength: 100);
+            
+            if (!string.IsNullOrEmpty(message))
+            {
+                var success = await _socialService.SendGiftAsync(currentUserId, UserId, gift.Id, 1, message);
+                
+                if (success)
+                {
+                    await Shell.Current.DisplayAlert("礼物发送成功！", $"已将{gift.Name}发送给{DisplayName}", "确定");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await ShowErrorAsync("发送礼物失败", ex.Message);
+        }
+    }
+
+    private async Task ShowDetailedCompatibilityAsync()
+    {
+        try
+        {
+            var currentUserId = await GetCurrentUserIdAsync();
+            var canAccess = await _socialService.CanAccessFeatureAsync(currentUserId, "DetailedCompatibility");
+            
+            if (!canAccess)
+            {
+                var result = await Shell.Current.DisplayAlert(
+                    "详细匹配报告", 
+                    "查看详细匹配报告需要VIP会员或消耗2积分。是否继续？", 
+                    "继续", "取消");
+                
+                if (!result) return;
+            }
+
+            await Shell.Current.GoToAsync($"compatibility?targetUserId={UserId}");
+        }
+        catch (Exception ex)
+        {
+            await ShowErrorAsync("查看匹配报告失败", ex.Message);
+        }
+    }
+
+    private string FormatLastSeen(DateTime lastSeen)
+    {
+        var timeSpan = DateTime.UtcNow - lastSeen;
+        
+        return timeSpan.TotalMinutes switch
+        {
+            < 5 => "刚刚在线",
+            < 60 => $"{(int)timeSpan.TotalMinutes}分钟前在线",
+            < 1440 => $"{(int)timeSpan.TotalHours}小时前在线",
+            < 10080 => $"{(int)timeSpan.TotalDays}天前在线",
+            _ => "很久没上线"
+        };
+    }
+
+    private string GetZodiacDisplayName(ZodiacSign sign)
+    {
+        return sign switch
+        {
+            ZodiacSign.Aries => "♈ 白羊座",
+            ZodiacSign.Taurus => "♉ 金牛座",
+            ZodiacSign.Gemini => "♊ 双子座",
+            ZodiacSign.Cancer => "♋ 巨蟹座",
+            ZodiacSign.Leo => "♌ 狮子座",
+            ZodiacSign.Virgo => "♍ 处女座",
+            ZodiacSign.Libra => "♎ 天秤座",
+            ZodiacSign.Scorpio => "♏ 天蝎座",
+            ZodiacSign.Sagittarius => "♐ 射手座",
+            ZodiacSign.Capricorn => "♑ 摩羯座",
+            ZodiacSign.Aquarius => "♒ 水瓶座",
+            ZodiacSign.Pisces => "♓ 双鱼座",
+            _ => "未知"
+        };
+    }
+
+    private string GetChineseZodiacDisplayName(ChineseZodiac sign)
+    {
+        return sign switch
+        {
+            ChineseZodiac.Rat => "🐭 鼠",
+            ChineseZodiac.Ox => "🐂 牛",
+            ChineseZodiac.Tiger => "🐅 虎",
+            ChineseZodiac.Rabbit => "🐰 兔",
+            ChineseZodiac.Dragon => "🐲 龙",
+            ChineseZodiac.Snake => "🐍 蛇",
+            ChineseZodiac.Horse => "🐴 马",
+            ChineseZodiac.Goat => "🐑 羊",
+            ChineseZodiac.Monkey => "🐒 猴",
+            ChineseZodiac.Rooster => "🐓 鸡",
+            ChineseZodiac.Dog => "🐕 狗",
+            ChineseZodiac.Pig => "🐷 猪",
+            _ => "未知"
+        };
+    }
+
+    private async Task<int> GetCurrentUserIdAsync()
+    {
+        // This would typically come from a user service or authentication
+        return 1; // Placeholder
+    }
+}

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="KnewFate.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:KnewFate.Views"
+    Title="KnewFate"
+    Shell.FlyoutBehavior="Flyout">
+
+    <Shell.FlyoutHeader>
+        <Grid BackgroundColor="{StaticResource Primary}" HeightRequest="200">
+            <Image Source="logo.png" 
+                   WidthRequest="100" 
+                   HeightRequest="100"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <FlyoutItem Title="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[Dashboard]}" 
+                Icon="home.png">
+        <ShellContent Route="dashboard" 
+                      ContentTemplate="{DataTemplate local:DashboardPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[Discovery]}" 
+                Icon="search.png">
+        <ShellContent Route="discovery" 
+                      ContentTemplate="{DataTemplate local:DiscoveryPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[ChartHub]}" 
+                Icon="chart.png">
+        <ShellContent Route="charthub" 
+                      ContentTemplate="{DataTemplate local:ChartHubPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[Relationship]}" 
+                Icon="heart.png">
+        <ShellContent Route="relationship" 
+                      ContentTemplate="{DataTemplate local:RelationshipPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[Career]}" 
+                Icon="career.png">
+        <ShellContent Route="career" 
+                      ContentTemplate="{DataTemplate local:CareerPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[Timeline]}" 
+                Icon="timeline.png">
+        <ShellContent Route="timeline" 
+                      ContentTemplate="{DataTemplate local:TimelinePage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[Tarot]}" 
+                Icon="tarot.png">
+        <ShellContent Route="tarot" 
+                      ContentTemplate="{DataTemplate local:TarotPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[AIAssistant]}" 
+                Icon="ai.png">
+        <ShellContent Route="ai_assistant" 
+                      ContentTemplate="{DataTemplate local:AIAssistantPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[AICustomerServiceAdmin]}" 
+                Icon="admin.png">
+        <ShellContent Route="ai_dashboard" 
+                      ContentTemplate="{DataTemplate local:AICustomerServiceDashboard}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[Settings]}" 
+                Icon="settings.png">
+        <ShellContent Route="settings" 
+                      ContentTemplate="{DataTemplate local:SettingsPage}" />
+    </FlyoutItem>
+
+</Shell>

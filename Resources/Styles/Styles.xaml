@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-stylesheet href="../debug.css"?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:KnewFate.Converters">
+
+    <!-- Application Styles -->
+    
+    <!-- App Shell Styles -->
+    <Style TargetType="Shell" ApplyToDerivedTypes="True">
+        <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+        <Setter Property="Shell.ForegroundColor" Value="{OnPlatform WinUI={StaticResource White}, Default={StaticResource White}}" />
+        <Setter Property="Shell.TitleColor" Value="{StaticResource White}" />
+        <Setter Property="Shell.DisabledColor" Value="{StaticResource Gray200}" />
+        <Setter Property="Shell.UnselectedColor" Value="{StaticResource Gray200}" />
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource White}" />
+        <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource Primary}"/>
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource Gray400}"/>
+        <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource Primary}"/>
+    </Style>
+
+    <!-- Label Styles -->
+    <Style TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource Gray900}" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <Style x:Key="Headline" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource Gray900}" />
+        <Setter Property="FontSize" Value="32" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="SubHeadline" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource Gray600}" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="CardTitle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource Primary}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style x:Key="CardSubtitle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource Gray600}" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <Style x:Key="MysticTitle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource Mystic}" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+
+    <!-- Button Styles -->
+    <Style TargetType="Button">
+        <Setter Property="TextColor" Value="{StaticResource White}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+        <Setter Property="BorderColor" Value="{StaticResource Primary}" />
+        <Setter Property="BorderWidth" Value="0" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="14,10" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Shadow" Value="{StaticResource ButtonShadow}" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="{StaticResource Gray300}" />
+                            <Setter Property="BackgroundColor" Value="{StaticResource Gray200}" />
+                            <Setter Property="BorderColor" Value="{StaticResource Gray200}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Scale" Value="0.96" />
+                            <Setter Property="BackgroundColor" Value="{StaticResource Tertiary}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SecondaryButton" TargetType="Button">
+        <Setter Property="TextColor" Value="{StaticResource Primary}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="BorderColor" Value="{StaticResource Primary}" />
+        <Setter Property="BorderWidth" Value="2" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="14,10" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <Style x:Key="TertiaryButton" TargetType="Button">
+        <Setter Property="TextColor" Value="{StaticResource White}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource Secondary}" />
+        <Setter Property="BorderColor" Value="{StaticResource Secondary}" />
+        <Setter Property="BorderWidth" Value="0" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="14,10" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <Style x:Key="DangerButton" TargetType="Button">
+        <Setter Property="TextColor" Value="{StaticResource White}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource Danger}" />
+        <Setter Property="BorderColor" Value="{StaticResource Danger}" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="14,10" />
+    </Style>
+
+    <!-- Entry Styles -->
+    <Style TargetType="Entry">
+        <Setter Property="TextColor" Value="{StaticResource Gray900}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource Gray400}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HeightRequest" Value="40" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Focused">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="{StaticResource Gray300}" />
+                            <Setter Property="BackgroundColor" Value="{StaticResource Gray100}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <!-- Frame Styles -->
+    <Style TargetType="Frame">
+        <Setter Property="HasShadow" Value="True" />
+        <Setter Property="BorderColor" Value="{StaticResource Gray200}" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+        <Setter Property="Shadow" Value="{StaticResource CardShadow}" />
+    </Style>
+
+    <Style x:Key="CardFrame" TargetType="Frame">
+        <Setter Property="HasShadow" Value="True" />
+        <Setter Property="BorderColor" Value="Transparent" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="20" />
+        <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+        <Setter Property="Shadow" Value="{StaticResource CardShadow}" />
+    </Style>
+
+    <Style x:Key="MysticFrame" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+        <Setter Property="Stroke" Value="{StaticResource Mystic}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="Padding" Value="20" />
+        <Setter Property="Shadow" Value="{StaticResource HeaderShadow}" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 15" />
+    </Style>
+
+    <Style x:Key="TarotCardFrame" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+        <Setter Property="Stroke" Value="{StaticResource Fortune}" />
+        <Setter Property="StrokeThickness" Value="2" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Shadow" Value="{StaticResource CardShadow}" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 8" />
+    </Style>
+
+    <!-- Progress Bar Styles -->
+    <Style TargetType="ProgressBar">
+        <Setter Property="ProgressColor" Value="{StaticResource Primary}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource Gray200}" />
+        <Setter Property="HeightRequest" Value="8" />
+    </Style>
+
+    <Style x:Key="LoveProgressBar" TargetType="ProgressBar">
+        <Setter Property="ProgressColor" Value="{StaticResource Love}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource Gray200}" />
+        <Setter Property="HeightRequest" Value="8" />
+    </Style>
+
+    <Style x:Key="CareerProgressBar" TargetType="ProgressBar">
+        <Setter Property="ProgressColor" Value="{StaticResource Career}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource Gray200}" />
+        <Setter Property="HeightRequest" Value="8" />
+    </Style>
+
+    <!-- Switch Styles -->
+    <Style TargetType="Switch">
+        <Setter Property="OnColor" Value="{StaticResource Primary}" />
+        <Setter Property="ThumbColor" Value="{StaticResource White}" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="OnColor" Value="{StaticResource Gray300}" />
+                            <Setter Property="ThumbColor" Value="{StaticResource Gray300}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="On">
+                        <VisualState.Setters>
+                            <Setter Property="OnColor" Value="{StaticResource Primary}" />
+                            <Setter Property="ThumbColor" Value="{StaticResource White}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Key="Off">
+                        <VisualState.Setters>
+                            <Setter Property="ThumbColor" Value="{StaticResource Gray400}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <!-- Collection View Styles -->
+    <Style TargetType="CollectionView">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+    </Style>
+
+    <!-- Page Styles -->
+    <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+        <Setter Property="BackgroundColor" Value="{StaticResource Gray100}" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <!-- Specialty Component Styles -->
+    <Style x:Key="EnergyIndicator" TargetType="StackLayout">
+        <Setter Property="Spacing" Value="8" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="ChartSection" TargetType="StackLayout">
+        <Setter Property="Spacing" Value="15" />
+        <Setter Property="Margin" Value="0,10,0,10" />
+    </Style>
+
+    <Style x:Key="NavigationCard" TargetType="Frame">
+        <Setter Property="HasShadow" Value="True" />
+        <Setter Property="CornerRadius" Value="15" />
+        <Setter Property="Padding" Value="20" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+        <Setter Property="Shadow" Value="{StaticResource CardShadow}" />
+    </Style>
+
+    <!-- Animation Styles -->
+    <Style x:Key="FadeInAnimation" TargetType="VisualElement">
+        <Setter Property="Opacity" Value="0" />
+    </Style>
+
+    <!-- Converter Resources -->
+    <local:BoolToColorConverter x:Key="BoolToColorConverter" 
+                               TrueColor="{StaticResource Primary}" 
+                               FalseColor="Transparent" />
+
+</ResourceDictionary>

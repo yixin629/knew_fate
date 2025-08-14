@@ -1,0 +1,444 @@
+﻿using System.Text;
+using System.Text.Json;
+using KnewFate.Models;
+
+namespace KnewFate.Services;
+
+public interface IAIService
+{
+    Task<string> GeneratePersonalityAnalysisAsync(string zodiacSign, string chineseZodiac, DateTime birthDate);
+    Task<string> GenerateCompatibilityAnalysisAsync(string userZodiac, string partnerZodiac, double compatibilityScore);
+    Task<string> GenerateTarotInterpretationAsync(List<string> cardNames, string question);
+    Task<string> GenerateCareerAdviceAsync(string zodiacSign, string personalityTraits, string interests);
+    Task<string> GenerateDailyInsightAsync(string zodiacSign, DateTime date);
+    Task<string> GenerateRelationshipAdviceAsync(string userProfile, string partnerProfile, string challenges);
+    Task<string> GenerateChatResponseAsync(string context, string userMessage);
+    Task<string> GenerateHoroscopeAsync(string zodiacSign, string period); // daily, weekly, monthly
+}
+
+public class AIService : IAIService
+{
+    private readonly HttpClient _httpClient;
+    private readonly ILocalizationService _localizationService;
+    
+    // 免费开源API配置
+    private readonly string[] _freeApiEndpoints = {
+        "https://api.groq.com/openai/v1/chat/completions", // Groq - 免费Llama模型
+        "https://api.together.xyz/v1/chat/completions", // Together AI - 免费额度
+        "https://api.deepseek.com/v1/chat/completions", // DeepSeek - 免费API
+        "https://open.bigmodel.cn/api/paas/v4/chat/completions" // 智谱AI - 免费额度
+    };
+    
+    private readonly Dictionary<string, string> _apiKeys = new()
+    {
+        ["groq"] = "gsk_free_api_key_here", // 免费API Key
+        ["together"] = "together_free_key_here",
+        ["deepseek"] = "deepseek_free_key_here",
+        ["zhipu"] = "zhipu_free_key_here"
+    };
+
+    public AIService(HttpClient httpClient, ILocalizationService localizationService)
+    {
+        _httpClient = httpClient;
+        _localizationService = localizationService;
+    }
+
+    public async Task<string> GeneratePersonalityAnalysisAsync(string zodiacSign, string chineseZodiac, DateTime birthDate)
+    {
+        var currentLanguage = await _localizationService.GetCurrentLanguageAsync();
+        
+        var prompt = currentLanguage == "zh-CN" 
+            ? $@"作为一位专业的命理大师，请为以下信息提供深度个性分析：
+            西方星座：{zodiacSign}
+            中国生肖：{chineseZodiac}
+            出生日期：{birthDate:yyyy年MM月dd日}
+            
+            请从以下方面进行分析：
+            1. 核心性格特征
+            2. 天赋和潜能
+            3. 性格优势
+            4. 需要注意的弱点
+            5. 人际关系风格
+            6. 适合的生活方式
+            
+            请用温暖、专业、有洞察力的语气回答，约200-300字。"
+            : $@"As a professional astrologer and personality analyst, please provide an in-depth personality analysis for:
+            Western Zodiac: {zodiacSign}
+            Chinese Zodiac: {chineseZodiac}
+            Birth Date: {birthDate:MMMM dd, yyyy}
+            
+            Please analyze from these aspects:
+            1. Core personality traits
+            2. Natural talents and potential
+            3. Personal strengths
+            4. Areas for growth
+            5. Interpersonal style
+            6. Ideal lifestyle
+            
+            Please respond in a warm, professional, and insightful tone, approximately 200-300 words.";
+
+        return await CallAIAsync(prompt);
+    }
+
+    public async Task<string> GenerateCompatibilityAnalysisAsync(string userZodiac, string partnerZodiac, double compatibilityScore)
+    {
+        var currentLanguage = await _localizationService.GetCurrentLanguageAsync();
+        
+        var prompt = currentLanguage == "zh-CN"
+            ? $@"作为专业的情感咨询师和占星师，请分析以下配对：
+            用户星座：{userZodiac}
+            伴侣星座：{partnerZodiac}
+            系统计算匹配度：{compatibilityScore:P1}
+            
+            请提供详细的配对分析：
+            1. 性格互补之处
+            2. 潜在的挑战点
+            3. 关系发展建议
+            4. 沟通方式建议
+            5. 长期关系展望
+            
+            请以专业而温暖的语气，给出实用的建议，约250字。"
+            : $@"As a professional relationship counselor and astrologer, please analyze this compatibility:
+            User Zodiac: {userZodiac}
+            Partner Zodiac: {partnerZodiac}
+            System Compatibility Score: {compatibilityScore:P1}
+            
+            Please provide detailed compatibility analysis:
+            1. Complementary traits
+            2. Potential challenges
+            3. Relationship development advice
+            4. Communication suggestions
+            5. Long-term relationship outlook
+            
+            Please respond with professional warmth and practical advice, approximately 250 words.";
+
+        return await CallAIAsync(prompt);
+    }
+
+    public async Task<string> GenerateTarotInterpretationAsync(List<string> cardNames, string question)
+    {
+        var currentLanguage = await _localizationService.GetCurrentLanguageAsync();
+        var cardsText = string.Join("、", cardNames);
+        
+        var prompt = currentLanguage == "zh-CN"
+            ? $@"作为资深塔罗牌解读师，请为以下塔罗牌阵提供深度解读：
+            问题：{question}
+            抽到的牌：{cardsText}
+            
+            请从以下角度解读：
+            1. 整体牌阵能量和主题
+            2. 每张牌的具体含义
+            3. 牌与牌之间的关联
+            4. 对问题的具体指导
+            5. 行动建议
+            6. 未来展望
+            
+            请用神秘而富有洞察力的语言，给出深刻的解读，约300字。"
+            : $@"As an experienced tarot reader, please provide an in-depth interpretation of this tarot spread:
+            Question: {question}
+            Cards drawn: {cardsText}
+            
+            Please interpret from these perspectives:
+            1. Overall spread energy and theme
+            2. Specific meaning of each card
+            3. Relationships between cards
+            4. Specific guidance for the question
+            5. Action recommendations
+            6. Future outlook
+            
+            Please use mystical yet insightful language for a profound reading, approximately 300 words.";
+
+        return await CallAIAsync(prompt);
+    }
+
+    public async Task<string> GenerateCareerAdviceAsync(string zodiacSign, string personalityTraits, string interests)
+    {
+        var currentLanguage = await _localizationService.GetCurrentLanguageAsync();
+        
+        var prompt = currentLanguage == "zh-CN"
+            ? $@"作为职业规划师和命理顾问，请为以下个人信息提供职业指导：
+            星座：{zodiacSign}
+            性格特质：{personalityTraits}
+            兴趣爱好：{interests}
+            
+            请提供：
+            1. 最适合的职业类型
+            2. 天赋领域分析
+            3. 职业发展路径建议
+            4. 需要提升的技能
+            5. 职场成功秘诀
+            6. 避免的职业陷阱
+            
+            请给出实用而鼓舞人心的建议，约250字。"
+            : $@"As a career counselor and astrological advisor, please provide career guidance for:
+            Zodiac Sign: {zodiacSign}
+            Personality Traits: {personalityTraits}
+            Interests: {interests}
+            
+            Please provide:
+            1. Most suitable career types
+            2. Natural talent analysis
+            3. Career development path suggestions
+            4. Skills to develop
+            5. Workplace success secrets
+            6. Career pitfalls to avoid
+            
+            Please give practical and inspiring advice, approximately 250 words.";
+
+        return await CallAIAsync(prompt);
+    }
+
+    public async Task<string> GenerateDailyInsightAsync(string zodiacSign, DateTime date)
+    {
+        var currentLanguage = await _localizationService.GetCurrentLanguageAsync();
+        
+        var prompt = currentLanguage == "zh-CN"
+            ? $@"作为占星师，请为{zodiacSign}座提供{date:yyyy年MM月dd日}的每日洞察：
+            
+            请包含：
+            1. 今日整体运势概况
+            2. 情感运势指导
+            3. 事业财运提醒
+            4. 健康注意事项
+            5. 幸运元素（颜色、数字、方位）
+            6. 今日行动建议
+            
+            请用积极正面的语气，给出具体可行的指导，约200字。"
+            : $@"As an astrologer, please provide daily insight for {zodiacSign} on {date:MMMM dd, yyyy}:
+            
+            Please include:
+            1. Overall daily fortune overview
+            2. Love and relationship guidance
+            3. Career and finance reminders
+            4. Health considerations
+            5. Lucky elements (colors, numbers, directions)
+            6. Daily action recommendations
+            
+            Please use a positive tone with specific actionable guidance, approximately 200 words.";
+
+        return await CallAIAsync(prompt);
+    }
+
+    public async Task<string> GenerateRelationshipAdviceAsync(string userProfile, string partnerProfile, string challenges)
+    {
+        var currentLanguage = await _localizationService.GetCurrentLanguageAsync();
+        
+        var prompt = currentLanguage == "zh-CN"
+            ? $@"作为情感专家，请为这对伴侣提供关系建议：
+            用户档案：{userProfile}
+            伴侣档案：{partnerProfile}
+            当前挑战：{challenges}
+            
+            请提供：
+            1. 关系现状分析
+            2. 问题根源解读
+            3. 具体改善方案
+            4. 沟通技巧建议
+            5. 增进感情的活动
+            6. 长期关系维护秘诀
+            
+            请给出实用而富有同理心的建议，约280字。"
+            : $@"As a relationship expert, please provide advice for this couple:
+            User Profile: {userProfile}
+            Partner Profile: {partnerProfile}
+            Current Challenges: {challenges}
+            
+            Please provide:
+            1. Current relationship analysis
+            2. Root cause interpretation
+            3. Specific improvement plans
+            4. Communication technique suggestions
+            5. Activities to enhance feelings
+            6. Long-term relationship maintenance secrets
+            
+            Please give practical and empathetic advice, approximately 280 words.";
+
+        return await CallAIAsync(prompt);
+    }
+
+    public async Task<string> GenerateChatResponseAsync(string context, string userMessage)
+    {
+        var currentLanguage = await _localizationService.GetCurrentLanguageAsync();
+        
+        var prompt = currentLanguage == "zh-CN"
+            ? $@"你是KnewFate应用中的智能助手，专门帮助用户解答命理、感情、人生规划相关问题。
+            
+            用户背景：{context}
+            用户问题：{userMessage}
+            
+            请以温暖、专业、有洞察力的方式回应。如果涉及命理问题，请结合占星、塔罗、生肖等知识。
+            如果是感情问题，请给出实用的建议。保持回答简洁而有用，约100-150字。"
+            : $@"You are an AI assistant in the KnewFate app, specializing in helping users with questions about destiny, relationships, and life planning.
+            
+            User Background: {context}
+            User Question: {userMessage}
+            
+            Please respond warmly, professionally, and insightfully. For destiny questions, incorporate astrology, tarot, zodiac knowledge.
+            For relationship questions, provide practical advice. Keep responses concise and helpful, approximately 100-150 words.";
+
+        return await CallAIAsync(prompt);
+    }
+
+    public async Task<string> GenerateHoroscopeAsync(string zodiacSign, string period)
+    {
+        var currentLanguage = await _localizationService.GetCurrentLanguageAsync();
+        var periodText = currentLanguage == "zh-CN" 
+            ? (period == "daily" ? "今日" : period == "weekly" ? "本周" : "本月")
+            : (period == "daily" ? "today" : period == "weekly" ? "this week" : "this month");
+        
+        var prompt = currentLanguage == "zh-CN"
+            ? $@"作为占星大师，请为{zodiacSign}座提供{periodText}运势：
+            
+            请包含：
+            1. 整体运势趋势
+            2. 爱情运势
+            3. 事业运势
+            4. 财运状况
+            5. 健康提醒
+            6. 开运建议
+            
+            请用鼓舞人心但诚实的语气，提供具体的指导，约250字。"
+            : $@"As an astrology master, please provide {periodText}'s horoscope for {zodiacSign}:
+            
+            Please include:
+            1. Overall fortune trends
+            2. Love fortune
+            3. Career fortune
+            4. Financial status
+            5. Health reminders
+            6. Lucky tips
+            
+            Please use an inspiring but honest tone with specific guidance, approximately 250 words.";
+
+        return await CallAIAsync(prompt);
+    }
+
+    private async Task<string> CallAIAsync(string prompt)
+    {
+        // 尝试多个免费API，如果一个失败就尝试下一个
+        foreach (var (endpoint, apiKey) in GetAvailableAPIs())
+        {
+            try
+            {
+                var response = await CallSpecificAPIAsync(endpoint, apiKey, prompt);
+                if (!string.IsNullOrEmpty(response))
+                {
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"API调用失败: {endpoint}, 错误: {ex.Message}");
+                continue; // 尝试下一个API
+            }
+        }
+
+        // 如果所有API都失败，返回默认回复
+        return GetFallbackResponse();
+    }
+
+    private IEnumerable<(string endpoint, string apiKey)> GetAvailableAPIs()
+    {
+        // 轮换使用不同的免费API
+        yield return ("https://api.groq.com/openai/v1/chat/completions", _apiKeys["groq"]);
+        yield return ("https://api.together.xyz/v1/chat/completions", _apiKeys["together"]);
+        yield return ("https://api.deepseek.com/v1/chat/completions", _apiKeys["deepseek"]);
+        
+        // 如果用户有自己的API Key，可以添加更多选项
+        // OpenAI Compatible APIs
+        yield return ("https://api.openai.com/v1/chat/completions", Environment.GetEnvironmentVariable("OPENAI_API_KEY") ?? "");
+    }
+
+    private async Task<string> CallSpecificAPIAsync(string endpoint, string apiKey, string prompt)
+    {
+        if (string.IsNullOrEmpty(apiKey))
+            throw new ArgumentException("API Key不可为空");
+
+        var requestBody = new
+        {
+            model = GetModelForEndpoint(endpoint),
+            messages = new[]
+            {
+                new { role = "system", content = "你是一位专业的命理师和人生导师，拥有深厚的占星学、塔罗牌、中国传统命理知识。请用温暖、专业、有洞察力的语气回答用户问题。" },
+                new { role = "user", content = prompt }
+            },
+            max_tokens = 500,
+            temperature = 0.7,
+            stream = false
+        };
+
+        var json = JsonSerializer.Serialize(requestBody);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        _httpClient.DefaultRequestHeaders.Clear();
+        _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+
+        var response = await _httpClient.PostAsync(endpoint, content);
+        
+        if (response.IsSuccessStatusCode)
+        {
+            var responseText = await response.Content.ReadAsStringAsync();
+            var responseJson = JsonSerializer.Deserialize<JsonElement>(responseText);
+            
+            return responseJson
+                .GetProperty("choices")[0]
+                .GetProperty("message")
+                .GetProperty("content")
+                .GetString() ?? GetFallbackResponse();
+        }
+        
+        throw new HttpRequestException($"API调用失败: {response.StatusCode}");
+    }
+
+    private string GetModelForEndpoint(string endpoint)
+    {
+        return endpoint switch
+        {
+            var e when e.Contains("groq") => "llama3-8b-8192",
+            var e when e.Contains("together") => "meta-llama/Llama-2-7b-chat-hf",
+            var e when e.Contains("deepseek") => "deepseek-chat",
+            var e when e.Contains("bigmodel") => "glm-4-flash",
+            var e when e.Contains("openai") => "gpt-3.5-turbo",
+            _ => "gpt-3.5-turbo"
+        };
+    }
+
+    private string GetFallbackResponse()
+    {
+        var fallbacks = new[]
+        {
+            "星辰指引着我们前进的道路，每一个选择都蕴含着宇宙的智慧。相信自己的直觉，它会为你指明方向。",
+            "命运的轮转中，机遇与挑战并存。保持开放的心态，拥抱变化，你会发现生活的无限可能。",
+            "在星座的映照下，你的独特性格正是你最大的财富。发挥自己的优势，勇敢追求内心的声音。",
+            "塔罗的智慧告诉我们，每一次结束都是新的开始。珍惜当下，期待美好的未来。",
+            "宇宙的能量在流转，现在正是你蜕变成长的最佳时机。相信自己，勇敢前行。"
+        };
+
+        var random = new Random();
+        return fallbacks[random.Next(fallbacks.Length)];
+    }
+}
+
+// AI增强的占星服务
+public class AIEnhancedZodiacService : IZodiacService
+{
+    private readonly IZodiacService _baseZodiacService;
+    private readonly IAIService _aiService;
+
+    public AIEnhancedZodiacService(IZodiacService baseZodiacService, IAIService aiService)
+    {
+        _baseZodiacService = baseZodiacService;
+        _aiService = aiService;
+    }
+
+    public Task<ZodiacProfile> GetZodiacProfileAsync(int userId) => _baseZodiacService.GetZodiacProfileAsync(userId);
+    public Task<ZodiacProfile> CreateZodiacProfileAsync(int userId, DateTime birthDate, TimeSpan birthTime, string birthPlace) => _baseZodiacService.CreateZodiacProfileAsync(userId, birthDate, birthTime, birthPlace);
+    public Task<string> GetDailyHoroscopeAsync(ZodiacSign sign, string language = "en") => _baseZodiacService.GetDailyHoroscopeAsync(sign, language);
+    public Task<string> GetWeeklyHoroscopeAsync(ZodiacSign sign, string language = "en") => _baseZodiacService.GetWeeklyHoroscopeAsync(sign, language);
+    public Task<string> GetMonthlyHoroscopeAsync(ZodiacSign sign, string language = "en") => _baseZodiacService.GetMonthlyHoroscopeAsync(sign, language);
+    public Task<List<string>> GetLuckyColorsAsync(ZodiacSign sign) => _baseZodiacService.GetLuckyColorsAsync(sign);
+    public Task<List<int>> GetLuckyNumbersAsync(ZodiacSign sign) => _baseZodiacService.GetLuckyNumbersAsync(sign);
+    public Task<double> CalculateZodiacCompatibilityAsync(ZodiacSign sign1, ZodiacSign sign2) => _baseZodiacService.CalculateZodiacCompatibilityAsync(sign1, sign2);
+    public Task<ZodiacSign> GetZodiacSignFromDateAsync(DateTime birthDate) => _baseZodiacService.GetZodiacSignFromDateAsync(birthDate);
+    public Task<ChineseZodiac> GetChineseZodiacFromDateAsync(DateTime birthDate) => _baseZodiacService.GetChineseZodiacFromDateAsync(birthDate);
+}

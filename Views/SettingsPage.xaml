@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:KnewFate.Views"
+             x:Class="KnewFate.Views.SettingsPage"
+             Title="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[Settings]}">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20">
+
+            <!-- Language Settings -->
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="20"
+                   HasShadow="True">
+                <StackLayout Spacing="15">
+                    <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[Language]}"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Primary}"/>
+                    
+                    <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[ChangeLanguage]}"
+                           FontSize="14"
+                           TextColor="{StaticResource Gray600}"/>
+
+                    <CollectionView ItemsSource="{Binding AvailableLanguages}"
+                                    SelectionMode="Single"
+                                    SelectedItem="{Binding SelectedLanguage}"
+                                    SelectionChangedCommand="{Binding LanguageSelectionChangedCommand}"
+                                    BackgroundColor="Transparent">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10" RowDefinitions="Auto">
+                                    <Frame BackgroundColor="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}}"
+                                           CornerRadius="10"
+                                           Padding="15"
+                                           HasShadow="False"
+                                           BorderColor="{StaticResource Primary}">
+                                        <StackLayout Orientation="Horizontal" Spacing="15">
+                                            <Image Source="{Binding FlagIcon}"
+                                                   WidthRequest="30"
+                                                   HeightRequest="20"
+                                                   VerticalOptions="Center"/>
+                                            <StackLayout VerticalOptions="Center">
+                                                <Label Text="{Binding DisplayName}"
+                                                       FontSize="16"
+                                                       FontAttributes="Bold"
+                                                       TextColor="{StaticResource Primary}"/>
+                                                <Label Text="{Binding NativeName}"
+                                                       FontSize="14"
+                                                       TextColor="{StaticResource Gray600}"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:SettingsPage}}, Path=BindingContext.SelectLanguageCommand}"
+                                                                  CommandParameter="{Binding}"/>
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Frame>
+
+            <!-- Notifications Settings -->
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="20"
+                   HasShadow="True">
+                <StackLayout Spacing="15">
+                    <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[Notifications]}"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Primary}"/>
+
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto" RowSpacing="15">
+                        
+                        <Label Grid.Row="0" Grid.Column="0"
+                               Text="Daily Guidance"
+                               FontSize="16"
+                               VerticalOptions="Center"/>
+                        <Switch Grid.Row="0" Grid.Column="1"
+                                IsToggled="{Binding DailyGuidanceEnabled}"
+                                OnColor="{StaticResource Primary}"/>
+
+                        <Label Grid.Row="1" Grid.Column="0"
+                               Text="Timeline Updates"
+                               FontSize="16"
+                               VerticalOptions="Center"/>
+                        <Switch Grid.Row="1" Grid.Column="1"
+                                IsToggled="{Binding TimelineUpdatesEnabled}"
+                                OnColor="{StaticResource Primary}"/>
+
+                        <Label Grid.Row="2" Grid.Column="0"
+                               Text="Relationship Insights"
+                               FontSize="16"
+                               VerticalOptions="Center"/>
+                        <Switch Grid.Row="2" Grid.Column="1"
+                                IsToggled="{Binding RelationshipInsightsEnabled}"
+                                OnColor="{StaticResource Primary}"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+            <!-- Privacy Settings -->
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="20"
+                   HasShadow="True">
+                <StackLayout Spacing="15">
+                    <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[Privacy]}"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Primary}"/>
+
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="15">
+                        
+                        <Label Grid.Row="0" Grid.Column="0"
+                               Text="Share Anonymous Data"
+                               FontSize="16"
+                               VerticalOptions="Center"/>
+                        <Switch Grid.Row="0" Grid.Column="1"
+                                IsToggled="{Binding ShareAnonymousDataEnabled}"
+                                OnColor="{StaticResource Primary}"/>
+
+                        <Label Grid.Row="1" Grid.Column="0"
+                               Text="Personalized Recommendations"
+                               FontSize="16"
+                               VerticalOptions="Center"/>
+                        <Switch Grid.Row="1" Grid.Column="1"
+                                IsToggled="{Binding PersonalizedRecommendationsEnabled}"
+                                OnColor="{StaticResource Primary}"/>
+                    </Grid>
+
+                    <Button Text="Export My Data"
+                            Command="{Binding ExportDataCommand}"
+                            BackgroundColor="{StaticResource Secondary}"
+                            TextColor="White"
+                            CornerRadius="10"
+                            Margin="0,10,0,0"/>
+
+                    <Button Text="Delete Account"
+                            Command="{Binding DeleteAccountCommand}"
+                            BackgroundColor="{StaticResource Tertiary}"
+                            TextColor="White"
+                            CornerRadius="10"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Subscription & Premium -->
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="20"
+                   HasShadow="True"
+                   IsVisible="{Binding ShowPremiumSection}">
+                <StackLayout Spacing="15">
+                    <Label Text="Premium Features"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Primary}"/>
+
+                    <Label Text="{Binding SubscriptionStatus}"
+                           FontSize="14"
+                           TextColor="{StaticResource Gray600}"/>
+
+                    <Button Text="{Binding SubscriptionButtonText}"
+                            Command="{Binding ManageSubscriptionCommand}"
+                            BackgroundColor="{StaticResource Primary}"
+                            TextColor="White"
+                            CornerRadius="10"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- About Section -->
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="20"
+                   HasShadow="True">
+                <StackLayout Spacing="15">
+                    <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[About]}"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Primary}"/>
+
+                    <Label Text="{Binding AppVersion}"
+                           FontSize="14"
+                           TextColor="{StaticResource Gray600}"/>
+
+                    <StackLayout Orientation="Horizontal" Spacing="15">
+                        <Button Text="Privacy Policy"
+                                Command="{Binding ShowPrivacyPolicyCommand}"
+                                BackgroundColor="Transparent"
+                                TextColor="{StaticResource Primary}"
+                                BorderColor="{StaticResource Primary}"
+                                BorderWidth="1"
+                                CornerRadius="10"
+                                HorizontalOptions="FillAndExpand"/>
+
+                        <Button Text="Terms of Service"
+                                Command="{Binding ShowTermsOfServiceCommand}"
+                                BackgroundColor="Transparent"
+                                TextColor="{StaticResource Primary}"
+                                BorderColor="{StaticResource Primary}"
+                                BorderWidth="1"
+                                CornerRadius="10"
+                                HorizontalOptions="FillAndExpand"/>
+                    </StackLayout>
+
+                    <Button Text="Contact Support"
+                            Command="{Binding ContactSupportCommand}"
+                            BackgroundColor="{StaticResource Secondary}"
+                            TextColor="White"
+                            CornerRadius="10"/>
+                </StackLayout>
+            </Frame>
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

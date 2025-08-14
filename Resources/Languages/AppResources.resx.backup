@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <!-- App Navigation -->
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="ChartHub" xml:space="preserve">
+    <value>Chart Hub</value>
+  </data>
+  <data name="Relationship" xml:space="preserve">
+    <value>Relationship</value>
+  </data>
+  <data name="Career" xml:space="preserve">
+    <value>Career</value>
+  </data>
+  <data name="Timeline" xml:space="preserve">
+    <value>Timeline</value>
+  </data>
+  <data name="Tarot" xml:space="preserve">
+    <value>Tarot</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Discovery" xml:space="preserve">
+    <value>Discovery</value>
+  </data>
+  <data name="SearchUsers" xml:space="preserve">
+    <value>Search users...</value>
+  </data>
+  <data name="NoUsersFound" xml:space="preserve">
+    <value>No recommended users found.
+Try adjusting your filters or check back later.</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="SmartMatch" xml:space="preserve">
+    <value>Smart Match</value>
+  </data>
+  <data name="NearbyPeople" xml:space="preserve">
+    <value>Nearby People</value>
+  </data>
+  <data name="CompatibilityScore" xml:space="preserve">
+    <value>Compatibility</value>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="VIPMember" xml:space="preserve">
+    <value>VIP Member</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>Send Message</value>
+  </data>
+  <data name="Like" xml:space="preserve">
+    <value>Like</value>
+  </data>
+  <data name="SuperLike" xml:space="preserve">
+    <value>Super Like</value>
+  </data>
+  <data name="SendGift" xml:space="preserve">
+    <value>Send Gift</value>
+  </data>
+  <data name="ProfileViews" xml:space="preserve">
+    <value>Profile Views</value>
+  </data>
+  <data name="ZodiacInfo" xml:space="preserve">
+    <value>Zodiac Information</value>
+  </data>
+  <data name="WesternZodiac" xml:space="preserve">
+    <value>Western Zodiac</value>
+  </data>
+  <data name="ChineseZodiac" xml:space="preserve">
+    <value>Chinese Zodiac</value>
+  </data>
+  <data name="PersonalityTraits" xml:space="preserve">
+    <value>Personality Traits</value>
+  </data>
+  <data name="Interests" xml:space="preserve">
+    <value>Interests</value>
+  </data>
+  <data name="Languages" xml:space="preserve">
+    <value>Languages</value>
+  </data>
+  <data name="DailyHoroscope" xml:space="preserve">
+    <value>Daily Horoscope</value>
+  </data>
+  <data name="WeeklyHoroscope" xml:space="preserve">
+    <value>Weekly Horoscope</value>
+  </data>
+  <data name="MonthlyHoroscope" xml:space="preserve">
+    <value>Monthly Horoscope</value>
+  </data>
+  <data name="LuckyColors" xml:space="preserve">
+    <value>Lucky Colors</value>
+  </data>
+  <data name="LuckyNumbers" xml:space="preserve">
+    <value>Lucky Numbers</value>
+  </data>
+  <data name="Credits" xml:space="preserve">
+    <value>Credits</value>
+  </data>
+  <data name="Premium" xml:space="preserve">
+    <value>Premium</value>
+  </data>
+  
+  <!-- Common -->
+  <data name="AppName" xml:space="preserve">
+    <value>KnewFate</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  
+  <!-- Onboarding -->
+  <data name="OnboardingTitle" xml:space="preserve">
+    <value>Discover Your Destiny</value>
+  </data>
+  <data name="OnboardingSubtitle" xml:space="preserve">
+    <value>Multi-traditional fortune telling and destiny calculation</value>
+  </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>Birth Date</value>
+  </data>
+  <data name="BirthTime" xml:space="preserve">
+    <value>Birth Time</value>
+  </data>
+  <data name="BirthLocation" xml:space="preserve">
+    <value>Birth Location</value>
+  </data>
+  <data name="EnterBirthInfo" xml:space="preserve">
+    <value>Please enter your birth information</value>
+  </data>
+  
+  <!-- Dashboard -->
+  <data name="TodayOverview" xml:space="preserve">
+    <value>Today's Overview</value>
+  </data>
+  <data name="LoveEnergy" xml:space="preserve">
+    <value>Love Energy</value>
+  </data>
+  <data name="CareerEnergy" xml:space="preserve">
+    <value>Career Energy</value>
+  </data>
+  <data name="OverallEnergy" xml:space="preserve">
+    <value>Overall Energy</value>
+  </data>
+  <data name="QuickTarot" xml:space="preserve">
+    <value>Quick Tarot</value>
+  </data>
+  <data name="DailyGuidance" xml:space="preserve">
+    <value>Daily Guidance</value>
+  </data>
+  
+  <!-- Chart Systems -->
+  <data name="BaziChart" xml:space="preserve">
+    <value>BaZi Chart</value>
+  </data>
+  <data name="AstrologyChart" xml:space="preserve">
+    <value>Astrology Chart</value>
+  </data>
+  <data name="ZiweiChart" xml:space="preserve">
+    <value>Ziwei Chart</value>
+  </data>
+  <data name="NumerologyChart" xml:space="preserve">
+    <value>Numerology Chart</value>
+  </data>
+  <data name="FusionReport" xml:space="preserve">
+    <value>Fusion Report</value>
+  </data>
+  
+  <!-- Relationship -->
+  <data name="Compatibility" xml:space="preserve">
+    <value>Compatibility</value>
+  </data>
+  <data name="SoulMateAnalysis" xml:space="preserve">
+    <value>Soul Mate Analysis</value>
+  </data>
+  <data name="RelationshipTimeline" xml:space="preserve">
+    <value>Relationship Timeline</value>
+  </data>
+  <data name="PartnerName" xml:space="preserve">
+    <value>Partner's Name</value>
+  </data>
+  <data name="PartnerBirthInfo" xml:space="preserve">
+    <value>Partner's Birth Information</value>
+  </data>
+  
+  <!-- Career -->
+  <data name="CareerGuidance" xml:space="preserve">
+    <value>Career Guidance</value>
+  </data>
+  <data name="IdealProfession" xml:space="preserve">
+    <value>Ideal Profession</value>
+  </data>
+  <data name="CareerPhases" xml:space="preserve">
+    <value>Career Phases</value>
+  </data>
+  <data name="FinancialFortune" xml:space="preserve">
+    <value>Financial Fortune</value>
+  </data>
+  
+  <!-- Timeline -->
+  <data name="LifeTimeline" xml:space="preserve">
+    <value>Life Timeline</value>
+  </data>
+  <data name="ImportantPeriods" xml:space="preserve">
+    <value>Important Periods</value>
+  </data>
+  <data name="UpcomingEvents" xml:space="preserve">
+    <value>Upcoming Events</value>
+  </data>
+  
+  <!-- Tarot -->
+  <data name="DrawCards" xml:space="preserve">
+    <value>Draw Cards</value>
+  </data>
+  <data name="ThreeCardSpread" xml:space="preserve">
+    <value>Three Card Spread</value>
+  </data>
+  <data name="CelticCross" xml:space="preserve">
+    <value>Celtic Cross</value>
+  </data>
+  <data name="AskQuestion" xml:space="preserve">
+    <value>Ask a Question</value>
+  </data>
+  <data name="YourQuestion" xml:space="preserve">
+    <value>Your Question</value>
+  </data>
+  
+  <!-- Settings -->
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="ChangeLanguage" xml:space="preserve">
+    <value>Change Language</value>
+  </data>
+  
+  <!-- Languages -->
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Chinese" xml:space="preserve">
+    <value>Chinese (Simplified)</value>
+  </data>
+  <data name="ChineseTraditional" xml:space="preserve">
+    <value>Chinese (Traditional)</value>
+  </data>
+  <!-- AI Customer Service -->
+  <data name="AIAssistant" xml:space="preserve">
+    <value>AI Assistant</value>
+  </data>
+  <data name="AIAssistantWelcome" xml:space="preserve">
+    <value>👋 Hi! I'm your AI assistant. How can I help you today?</value>
+  </data>
+  <data name="AIAssistantClickToOpen" xml:space="preserve">
+    <value>Click to open AI Assistant</value>
+  </data>
+  <data name="HowCanIHelp" xml:space="preserve">
+    <value>How can I help you?</value>
+  </data>
+  <data name="AppUsage" xml:space="preserve">
+    <value>App Usage</value>
+  </data>
+  <data name="TechnicalSupport" xml:space="preserve">
+    <value>Technical Support</value>
+  </data>
+  <data name="AccountSettings" xml:space="preserve">
+    <value>Account Settings</value>
+  </data>
+  <data name="FeedbackSuggestions" xml:space="preserve">
+    <value>Feedback &amp; Suggestions</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>Send Message</value>
+  </data>
+  <data name="TypeMessage" xml:space="preserve">
+    <value>Type your message...</value>
+  </data>
+  <data name="AIIsTyping" xml:space="preserve">
+    <value>AI is typing...</value>
+  </data>
+  <data name="AIConnecting" xml:space="preserve">
+    <value>Connecting to AI service...</value>
+  </data>
+  <data name="NetworkError" xml:space="preserve">
+    <value>Network error, please try again later</value>
+  </data>
+  <data name="AIServiceError" xml:space="preserve">
+    <value>AI service temporarily unavailable</value>
+  </data>
+  <data name="PoweredByAI" xml:space="preserve">
+    <value>Powered by AI</value>
+  </data>
+  <data name="CloseChat" xml:space="preserve">
+    <value>Close Chat</value>
+  </data>
+  <data name="MinimizeChat" xml:space="preserve">
+    <value>Minimize Chat</value>
+  </data>
+  <data name="CustomerService" xml:space="preserve">
+    <value>Customer Service</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <!-- AI Quick Questions -->
+  <data name="HowIsMyFortuneToday" xml:space="preserve">
+    <value>How is my fortune today?</value>
+  </data>
+  <data name="AnalyzeMyPersonality" xml:space="preserve">
+    <value>Analyze my personality</value>
+  </data>
+  <data name="LoveFortuneGuidance" xml:space="preserve">
+    <value>Love fortune guidance</value>
+  </data>
+  <data name="CareerDevelopmentAdvice" xml:space="preserve">
+    <value>Career development advice</value>
+  </data>
+  <data name="TarotCardReading" xml:space="preserve">
+    <value>Tarot card reading</value>
+  </data>
+  <data name="WealthEnhancementTips" xml:space="preserve">
+    <value>Wealth enhancement tips</value>
+  </data>
+  <!-- AI Error Messages -->
+  <data name="AITemporarilyUnavailable" xml:space="preserve">
+    <value>Sorry, I'm temporarily unable to answer your question. Please try again later or contact human customer service.</value>
+  </data>
+  <data name="NetworkConnectionError" xml:space="preserve">
+    <value>Network connection error, please check your network and try again. For urgent help, please contact human customer service.</value>
+  </data>
+  <!-- Navigation -->
+  <data name="AICustomerServiceAdmin" xml:space="preserve">
+    <value>AI Customer Service Admin</value>
+  </data>
+  <!-- AI Assistant Page -->
+  <data name="KnewFateAIAssistant" xml:space="preserve">
+    <value>🔮 KnewFate AI Assistant</value>
+  </data>
+  <data name="ProfessionalConsultant24Hours" xml:space="preserve">
+    <value>Professional Fortune Consultant • 24/7 Online Service</value>
+  </data>
+  <data name="WelcomeToKnewFateAI" xml:space="preserve">
+    <value>✨ Welcome to KnewFate AI Assistant!</value>
+  </data>
+  <data name="AIAssistantDescription" xml:space="preserve">
+    <value>I'm your dedicated fortune consultant, combining wisdom from astrology, tarot cards, traditional Chinese fortune-telling, and more. You can ask about:</value>
+  </data>
+  <data name="PersonalityAnalysis" xml:space="preserve">
+    <value>• Personality analysis and self-awareness</value>
+  </data>
+  <data name="RelationshipCompatibility" xml:space="preserve">
+    <value>• Relationship analysis and compatibility</value>
+  </data>
+  <data name="CareerGuidance" xml:space="preserve">
+    <value>• Career planning and life direction</value>
+  </data>
+  <data name="FortuneGuidance" xml:space="preserve">
+    <value>• Fortune reading and life guidance</value>
+  </data>
+  <data name="TarotReading" xml:space="preserve">
+    <value>• Tarot card divination analysis</value>
+  </data>
+  <data name="AIAssistantClosing" xml:space="preserve">
+    <value>Feel free to ask me anything, I'll provide professional and warm guidance! 💫</value>
+  </data>
+  <data name="AIThinking" xml:space="preserve">
+    <value>AI Assistant is thinking...</value>
+  </data>
+  <data name="QuickQuestions" xml:space="preserve">
+    <value>Quick Questions</value>
+  </data>
+  <!-- AI Dashboard -->
+  <data name="AIServiceStatus" xml:space="preserve">
+    <value>🤖 AI Customer Service Status</value>
+  </data>
+  <data name="OnlineStatus" xml:space="preserve">
+    <value>🟢 Online Status</value>
+  </data>
+  <data name="NormalOperation" xml:space="preserve">
+    <value>Normal Operation</value>
+  </data>
+  <data name="ActiveConversations" xml:space="preserve">
+    <value>📊 Active Conversations</value>
+  </data>
+  <data name="AverageResponseTime" xml:space="preserve">
+    <value>⚡ Average Response Time</value>
+  </data>
+  <data name="LessThan3Seconds" xml:space="preserve">
+    <value>&lt; 3 seconds</value>
+  </data>
+  <data name="QuickActions" xml:space="preserve">
+    <value>⚡ Quick Actions</value>
+  </data>
+  <data name="BroadcastNotification" xml:space="preserve">
+    <value>📢 Broadcast Notification</value>
+  </data>
+  <data name="ViewStatistics" xml:space="preserve">
+    <value>📊 View Statistics</value>
+  </data>
+  <data name="RestartAIService" xml:space="preserve">
+    <value>🔄 Restart AI Service</value>
+  </data>
+  <data name="AIModelStatus" xml:space="preserve">
+    <value>🧠 AI Model Status</value>
+  </data>
+  <data name="RecentMessageLog" xml:space="preserve">
+    <value>📝 Recent Message Log</value>
+  </data>
+  <!-- Authentication -->
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Forgot Password?</value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="SendResetLink" xml:space="preserve">
+    <value>Send Reset Link</value>
+  </data>
+  <data name="BackToLogin" xml:space="preserve">
+    <value>Back to Login</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Create Account</value>
+  </data>
+  <data name="AlreadyHaveAccount" xml:space="preserve">
+    <value>Already have an account?</value>
+  </data>
+  <data name="DontHaveAccount" xml:space="preserve">
+    <value>Don't have an account?</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember Me</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="WelcomeBack" xml:space="preserve">
+    <value>Welcome Back</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Enter your email</value>
+  </data>
+  <data name="EnterPassword" xml:space="preserve">
+    <value>Enter your password</value>
+  </data>
+  <data name="EnterFirstName" xml:space="preserve">
+    <value>Enter your first name</value>
+  </data>
+  <data name="EnterLastName" xml:space="preserve">
+    <value>Enter your last name</value>
+  </data>
+  <data name="PasswordResetEmailSent" xml:space="preserve">
+    <value>Password reset instructions have been sent to your email</value>
+  </data>
+  <data name="InvalidCredentials" xml:space="preserve">
+    <value>Invalid email or password</value>
+  </data>
+  <data name="AccountCreated" xml:space="preserve">
+    <value>Account created successfully</value>
+  </data>
+  <data name="PasswordTooShort" xml:space="preserve">
+    <value>Password must be at least 8 characters</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Passwords do not match</value>
+  </data>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>Email is required</value>
+  </data>
+  <data name="PasswordRequired" xml:space="preserve">
+    <value>Password is required</value>
+  </data>
+  <data name="FirstNameRequired" xml:space="preserve">
+    <value>First name is required</value>
+  </data>
+  <data name="LastNameRequired" xml:space="preserve">
+    <value>Last name is required</value>
+  </data>
+  <data name="InvalidEmailFormat" xml:space="preserve">
+    <value>Please enter a valid email address</value>
+  </data>
+</root>

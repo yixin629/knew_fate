@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:KnewFate.Views"
+             x:Class="KnewFate.Views.DashboardPage"
+             Title="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[Dashboard]}">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20">
+            
+            <!-- Welcome Section -->
+            <Frame BackgroundColor="{StaticResource Primary}" 
+                   CornerRadius="15" 
+                   Padding="20">
+                <StackLayout>
+                    <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[Welcome]}"
+                           TextColor="White"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"/>
+                    <Label Text="{Binding WelcomeMessage}"
+                           TextColor="White"
+                           FontSize="16"
+                           HorizontalOptions="Center"
+                           Margin="0,10,0,0"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Today's Overview -->
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="20"
+                   HasShadow="True">
+                <StackLayout>
+                    <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[TodayOverview]}"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Primary}"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,15"/>
+
+                    <!-- Energy Indicators -->
+                    <Grid RowDefinitions="Auto,Auto,Auto" 
+                          ColumnDefinitions="*,*" 
+                          RowSpacing="15" 
+                          ColumnSpacing="10">
+                        
+                        <!-- Love Energy -->
+                        <StackLayout Grid.Row="0" Grid.Column="0">
+                            <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[LoveEnergy]}"
+                                   FontSize="14"
+                                   TextColor="{StaticResource Gray600}"
+                                   HorizontalOptions="Center"/>
+                            <ProgressBar Progress="{Binding LoveEnergyProgress}"
+                                         ProgressColor="{StaticResource Tertiary}"
+                                         BackgroundColor="{StaticResource Gray200}"
+                                         HeightRequest="8"
+                                         Margin="0,5,0,0"/>
+                            <Label Text="{Binding LoveEnergyText}"
+                                   FontSize="12"
+                                   TextColor="{StaticResource Primary}"
+                                   HorizontalOptions="Center"
+                                   Margin="0,5,0,0"/>
+                        </StackLayout>
+
+                        <!-- Career Energy -->
+                        <StackLayout Grid.Row="0" Grid.Column="1">
+                            <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[CareerEnergy]}"
+                                   FontSize="14"
+                                   TextColor="{StaticResource Gray600}"
+                                   HorizontalOptions="Center"/>
+                            <ProgressBar Progress="{Binding CareerEnergyProgress}"
+                                         ProgressColor="{StaticResource Secondary}"
+                                         BackgroundColor="{StaticResource Gray200}"
+                                         HeightRequest="8"
+                                         Margin="0,5,0,0"/>
+                            <Label Text="{Binding CareerEnergyText}"
+                                   FontSize="12"
+                                   TextColor="{StaticResource Primary}"
+                                   HorizontalOptions="Center"
+                                   Margin="0,5,0,0"/>
+                        </StackLayout>
+
+                        <!-- Overall Energy -->
+                        <StackLayout Grid.Row="1" Grid.ColumnSpan="2">
+                            <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[OverallEnergy]}"
+                                   FontSize="14"
+                                   TextColor="{StaticResource Gray600}"
+                                   HorizontalOptions="Center"/>
+                            <ProgressBar Progress="{Binding OverallEnergyProgress}"
+                                         ProgressColor="{StaticResource Primary}"
+                                         BackgroundColor="{StaticResource Gray200}"
+                                         HeightRequest="10"
+                                         Margin="0,5,0,0"/>
+                            <Label Text="{Binding OverallEnergyText}"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}"
+                                   HorizontalOptions="Center"
+                                   Margin="0,5,0,0"/>
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+            <!-- Daily Guidance -->
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="20"
+                   HasShadow="True">
+                <StackLayout>
+                    <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[DailyGuidance]}"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Primary}"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,10"/>
+                    <Label Text="{Binding DailyGuidanceText}"
+                           FontSize="14"
+                           TextColor="{StaticResource Gray600}"
+                           HorizontalOptions="Center"
+                           LineBreakMode="WordWrap"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Quick Actions -->
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                
+                <!-- Quick Tarot -->
+                <Frame Grid.Column="0"
+                       BackgroundColor="{StaticResource Tertiary}"
+                       CornerRadius="15"
+                       Padding="15"
+                       HasShadow="True">
+                    <StackLayout>
+                        <Image Source="tarot_card.png"
+                               WidthRequest="30"
+                               HeightRequest="30"
+                               HorizontalOptions="Center"/>
+                        <Label Text="Tarot"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               Margin="0,8,0,0"/>
+                    </StackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToTarotCommand}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <!-- AI Assistant -->
+                <Frame Grid.Column="1"
+                       BackgroundColor="{StaticResource Primary}"
+                       CornerRadius="15"
+                       Padding="15"
+                       HasShadow="True">
+                    <StackLayout>
+                        <Label Text="🔮"
+                               FontSize="24"
+                               HorizontalOptions="Center"/>
+                        <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[AIAssistant]}"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               Margin="0,5,0,0"/>
+                    </StackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToAIAssistantCommand}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <!-- Chart Hub -->
+                <Frame Grid.Column="2"
+                       BackgroundColor="{StaticResource Secondary}"
+                       CornerRadius="15"
+                       Padding="15"
+                       HasShadow="True">
+                    <StackLayout>
+                        <Image Source="chart.png"
+                               WidthRequest="30"
+                               HeightRequest="30"
+                               HorizontalOptions="Center"/>
+                        <Label Text="Charts"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               Margin="0,8,0,0"/>
+                    </StackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToChartHubCommand}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+            </Grid>
+
+            <!-- Recent Insights -->
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="20"
+                   HasShadow="True">
+                <StackLayout>
+                    <Label Text="Recent Insights"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Primary}"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,15"/>
+                    
+                    <CollectionView ItemsSource="{Binding RecentInsights}"
+                                    BackgroundColor="Transparent">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="0,5,0,10">
+                                    <Frame BackgroundColor="{StaticResource Gray100}"
+                                           CornerRadius="10"
+                                           Padding="15"
+                                           HasShadow="False">
+                                        <StackLayout>
+                                            <Label Text="{Binding Title}"
+                                                   FontSize="14"
+                                                   FontAttributes="Bold"
+                                                   TextColor="{StaticResource Primary}"/>
+                                            <Label Text="{Binding Description}"
+                                                   FontSize="12"
+                                                   TextColor="{StaticResource Gray600}"
+                                                   LineBreakMode="WordWrap"
+                                                   Margin="0,5,0,0"/>
+                                            <Label Text="{Binding Date, StringFormat='{0:MMM dd, yyyy}'}"
+                                                   FontSize="10"
+                                                   TextColor="{StaticResource Gray500}"
+                                                   HorizontalOptions="End"
+                                                   Margin="0,5,0,0"/>
+                                        </StackLayout>
+                                    </Frame>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Frame>
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

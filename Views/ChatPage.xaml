@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="KnewFate.Views.ChatPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:KnewFate.ViewModels"
+             xmlns:models="clr-namespace:KnewFate.Models"
+             x:DataType="vm:ChatViewModel"
+             Title="{Binding ChatTitle}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Messages List -->
+        <CollectionView Grid.Row="0" 
+                       ItemsSource="{Binding Messages}"
+                       VerticalOptions="EndAndExpand"
+                       Margin="10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ChatMessage">
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Received Message -->
+                        <Border Grid.Column="0"
+                               BackgroundColor="{DynamicResource Gray100}"
+                               Padding="15,10"
+                               Margin="0,0,50,0"
+                               IsVisible="{Binding IsReceived}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="15,15,15,5" />
+                            </Border.StrokeShape>
+                            
+                            <StackLayout>
+                                <Label Text="{Binding Content}"
+                                      FontSize="16"
+                                      TextColor="{DynamicResource Gray900}" />
+                                <Label Text="{Binding SentAt, StringFormat='{0:HH:mm}'}"
+                                      FontSize="12"
+                                      TextColor="{DynamicResource Gray500}"
+                                      HorizontalOptions="Start" />
+                            </StackLayout>
+                        </Border>
+
+                        <!-- Sent Message -->
+                        <Border Grid.Column="1"
+                               BackgroundColor="{DynamicResource Primary}"
+                               Padding="15,10"
+                               Margin="50,0,0,0"
+                               IsVisible="{Binding IsUser}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="15,15,5,15" />
+                            </Border.StrokeShape>
+                            
+                            <StackLayout>
+                                <Label Text="{Binding Content}"
+                                      FontSize="16"
+                                      TextColor="White" />
+                                <Label Text="{Binding SentAt, StringFormat='{0:HH:mm}'}"
+                                      FontSize="12"
+                                      TextColor="White"
+                                      Opacity="0.8"
+                                      HorizontalOptions="End" />
+                            </StackLayout>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Message Input -->
+        <Border Grid.Row="1"
+               BackgroundColor="White"
+               Stroke="{DynamicResource Gray200}"
+               StrokeThickness="1"
+               Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Entry Grid.Column="0"
+                      Text="{Binding MessageText}"
+                      Placeholder="输入消息..."
+                      FontSize="16"
+                      VerticalOptions="Center" />
+
+                <Button Grid.Column="1"
+                       Text="发送"
+                       BackgroundColor="{DynamicResource Primary}"
+                       TextColor="White"
+                       FontSize="14"
+                       Padding="15,10"
+                       CornerRadius="15"
+                       Command="{Binding SendMessageCommand}"
+                       Clicked="OnSendMessageClicked" />
+            </Grid>
+        </Border>
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="KnewFate.Views.AIAssistantPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:KnewFate.ViewModels"
+             xmlns:models="clr-namespace:KnewFate.Models"
+             xmlns:local="clr-namespace:KnewFate.Views"
+             x:DataType="vm:AIAssistantViewModel"
+             Title="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[AIAssistant]}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" BackgroundColor="{DynamicResource Primary}" Padding="20,15">
+            <StackLayout>
+                <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[KnewFateAIAssistant]}"
+                      FontSize="20"
+                      FontAttributes="Bold"
+                      TextColor="White"
+                      HorizontalOptions="Center" />
+                <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[ProfessionalConsultant24Hours]}"
+                      FontSize="14"
+                      TextColor="White"
+                      Opacity="0.9"
+                      HorizontalOptions="Center" />
+            </StackLayout>
+        </Border>
+
+        <!-- Chat Messages -->
+        <ScrollView Grid.Row="1" x:Name="ChatScrollView">
+            <StackLayout Padding="15" Spacing="15">
+                <!-- Welcome Message -->
+                <Border BackgroundColor="{DynamicResource Gray100}"
+                       Padding="15"
+                       IsVisible="{Binding IsFirstTime}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15,15,15,5" />
+                    </Border.StrokeShape>
+                    
+                    <StackLayout>
+                        <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[WelcomeToKnewFateAI]}"
+                              FontSize="16"
+                              FontAttributes="Bold"
+                              TextColor="{DynamicResource Primary}" />
+                        <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[AIAssistantDescription]}"
+                              FontSize="14"
+                              TextColor="{DynamicResource Gray700}"
+                              Margin="0,5,0,0" />
+                        
+                        <StackLayout Margin="10,10,0,0" Spacing="5">
+                            <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[PersonalityAnalysis]}" FontSize="13" TextColor="{DynamicResource Gray600}" />
+                            <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[RelationshipCompatibility]}" FontSize="13" TextColor="{DynamicResource Gray600}" />
+                            <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[CareerGuidance]}" FontSize="13" TextColor="{DynamicResource Gray600}" />
+                            <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[FortuneGuidance]}" FontSize="13" TextColor="{DynamicResource Gray600}" />
+                            <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[TarotReading]}" FontSize="13" TextColor="{DynamicResource Gray600}" />
+                        </StackLayout>
+
+                        <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[AIAssistantClosing]}"
+                              FontSize="14"
+                              FontAttributes="Italic"
+                              TextColor="{DynamicResource Primary}"
+                              Margin="0,10,0,0" />
+                    </StackLayout>
+                </Border>
+
+                <!-- Quick Questions -->
+                <CollectionView ItemsSource="{Binding QuickQuestions}"
+                               IsVisible="{Binding ShowQuickQuestions}"
+                               HeightRequest="120">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BackgroundColor="{DynamicResource Primary}"
+                                   Padding="15,10"
+                                   WidthRequest="200">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="20" />
+                                </Border.StrokeShape>
+                                
+                                <Label Text="{Binding}"
+                                      FontSize="13"
+                                      TextColor="White"
+                                      HorizontalOptions="Center"
+                                      VerticalOptions="Center"
+                                      MaxLines="3"
+                                      LineBreakMode="WordWrap" />
+
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:AIAssistantViewModel}}, Path=SendQuickQuestionCommand}"
+                                                        CommandParameter="{Binding}" />
+                                </Border.GestureRecognizers>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Chat Messages -->
+                <CollectionView ItemsSource="{Binding Messages}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:ChatMessage">
+                            <Grid Margin="0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- User Message -->
+                                <Border Grid.Column="1"
+                                       BackgroundColor="{DynamicResource Primary}"
+                                       Padding="15,10"
+                                       Margin="50,0,0,0"
+                                       IsVisible="{Binding IsUser}">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="15,15,5,15" />
+                                    </Border.StrokeShape>
+                                    
+                                    <StackLayout>
+                                        <Label Text="{Binding Content}"
+                                              FontSize="14"
+                                              TextColor="White"
+                                              MaxLines="50"
+                                              LineBreakMode="WordWrap" />
+                                        <Label Text="{Binding Timestamp, StringFormat='{0:HH:mm}'}"
+                                              FontSize="12"
+                                              TextColor="White"
+                                              Opacity="0.8"
+                                              HorizontalOptions="End"
+                                              Margin="0,5,0,0" />
+                                    </StackLayout>
+                                </Border>
+
+                                <!-- AI Message -->
+                                <Border Grid.Column="0"
+                                       BackgroundColor="{DynamicResource Gray100}"
+                                       Padding="15,10"
+                                       Margin="0,0,50,0"
+                                       IsVisible="{Binding IsAI}">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="15,15,15,5" />
+                                    </Border.StrokeShape>
+                                    
+                                    <StackLayout>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            
+                                            <Label Grid.Column="0"
+                                                  Text="🔮"
+                                                  FontSize="16"
+                                                  VerticalOptions="Start"
+                                                  Margin="0,0,8,0" />
+                                            
+                                            <Label Grid.Column="1"
+                                                  Text="{Binding Content}"
+                                                  FontSize="14"
+                                                  TextColor="{DynamicResource Gray900}"
+                                                  MaxLines="50"
+                                                  LineBreakMode="WordWrap" />
+                                        </Grid>
+                                        
+                                        <Label Text="{Binding Timestamp, StringFormat='{0:HH:mm}'}"
+                                              FontSize="12"
+                                              TextColor="{DynamicResource Gray500}"
+                                              HorizontalOptions="Start"
+                                              Margin="0,5,0,0" />
+                                    </StackLayout>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Loading Indicator -->
+                <StackLayout Orientation="Horizontal"
+                            IsVisible="{Binding IsLoading}"
+                            Margin="0,0,50,0">
+                    <Label Text="🔮" FontSize="16" Margin="0,0,8,0" />
+                    <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                      Color="{DynamicResource Primary}"
+                                      VerticalOptions="Center" />
+                    <Label Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[AIThinking]}"
+                          FontSize="14"
+                          TextColor="{DynamicResource Gray600}"
+                          VerticalOptions="Center"
+                          Margin="10,0,0,0" />
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Input Area -->
+        <Border Grid.Row="2"
+               BackgroundColor="White"
+               Stroke="{DynamicResource Gray200}"
+               StrokeThickness="1"
+               Padding="15,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Entry Grid.Column="0"
+                      Text="{Binding InputText}"
+                      Placeholder="请输入您的问题..."
+                      FontSize="16"
+                      VerticalOptions="Center"
+                      ReturnType="Send"
+                      ReturnCommand="{Binding SendMessageCommand}" />
+
+                <Button Grid.Column="1"
+                       Text="🎯"
+                       FontSize="16"
+                       BackgroundColor="Transparent"
+                       Command="{Binding ShowQuickQuestionsCommand}"
+                       ToolTipProperties.Text="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[QuickQuestions]}"
+                       Margin="5,0" />
+
+                <Button Grid.Column="2"
+                       Text="发送"
+                       BackgroundColor="{DynamicResource Primary}"
+                       TextColor="White"
+                       FontSize="14"
+                       Padding="20,10"
+                       Command="{Binding SendMessageCommand}"
+                       IsEnabled="{Binding CanSendMessage}"
+                       CornerRadius="20">
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+
+</ContentPage>

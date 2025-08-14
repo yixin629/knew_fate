@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7wxW7paNcq0=",
+  "dgSpecHash": "D34UBYGmYG0=",
   "success": true,
-  "projectFilePath": "c:\\Users\\Yixin Zhang\\Desktop\\knew_fate\\KnewFate.csproj",
+  "projectFilePath": "C:\\Users\\Yixin Zhang\\Desktop\\knew_fate\\KnewFate.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Yixin Zhang\\.nuget\\packages\\communitytoolkit.maui\\9.0.2\\communitytoolkit.maui.9.0.2.nupkg.sha512",
     "C:\\Users\\Yixin Zhang\\.nuget\\packages\\communitytoolkit.maui.core\\9.0.2\\communitytoolkit.maui.core.9.0.2.nupkg.sha512",

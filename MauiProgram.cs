@@ -62,6 +62,12 @@ public static class MauiProgram
         
         // Social Services
         builder.Services.AddSingleton<ISocialService, SocialService>();
+        builder.Services.AddSingleton<IZiweiService, ZiweiService>();
+        builder.Services.AddSingleton<INumerologyService, NumerologyService>();
+        builder.Services.AddSingleton<IFiveElementsService, FiveElementsService>();
+        builder.Services.AddSingleton<ICareerGuidanceService, CareerGuidanceService>();
+        builder.Services.AddSingleton<ITimelinePredictionService, TimelinePredictionService>();
+        builder.Services.AddSingleton<IDailyFortuneService, DailyFortuneService>();
 
         // Register ViewModels
         builder.Services.AddTransient<MainViewModel>();

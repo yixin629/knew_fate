@@ -1,2 +1,8 @@
 2025-08-14T16:23:38.6558105+10:00 WinUI App ctor before InitializeComponent
 2025-08-14T16:23:38.7043149+10:00 WinUI App ctor InitializeComponent OK
+2025-08-14T16:33:16.8660490+10:00 WinUI App ctor before InitializeComponent
+2025-08-14T16:33:16.9207612+10:00 WinUI App ctor InitializeComponent OK
+2025-08-14T16:37:17.4374707+10:00 WinUI App ctor before InitializeComponent
+2025-08-14T16:37:17.4968905+10:00 WinUI App ctor InitializeComponent OK
+2025-08-14T16:41:49.5016289+10:00 WinUI App ctor before InitializeComponent
+2025-08-14T16:41:49.5632571+10:00 WinUI App ctor InitializeComponent OK

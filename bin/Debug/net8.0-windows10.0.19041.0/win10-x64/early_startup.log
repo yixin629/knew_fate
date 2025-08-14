@@ -3,3 +3,18 @@
 2025-08-14T16:23:39.0215454+10:00 [MauiProgram] Builder created and fonts configured
 2025-08-14T16:23:39.0239607+10:00 [MauiProgram] Logging service added (DEBUG)
 2025-08-14T16:23:39.3134121+10:00 [MauiProgram] MauiApp built successfully
+2025-08-14T16:33:17.0005909+10:00 [MauiProgram] === CreateMauiApp entered ===
+2025-08-14T16:33:17.0016100+10:00 [MauiProgram] Process: 24552 PID, FrameworkDescription=.NET 8.0.19
+2025-08-14T16:33:17.1042945+10:00 [MauiProgram] Builder created and fonts configured
+2025-08-14T16:33:17.1082015+10:00 [MauiProgram] Logging service added (DEBUG)
+2025-08-14T16:33:17.3900210+10:00 [MauiProgram] MauiApp built successfully
+2025-08-14T16:37:17.5513762+10:00 [MauiProgram] === CreateMauiApp entered ===
+2025-08-14T16:37:17.5524731+10:00 [MauiProgram] Process: 22276 PID, FrameworkDescription=.NET 8.0.19
+2025-08-14T16:37:17.6255438+10:00 [MauiProgram] Builder created and fonts configured
+2025-08-14T16:37:17.6291875+10:00 [MauiProgram] Logging service added (DEBUG)
+2025-08-14T16:37:17.7969750+10:00 [MauiProgram] MauiApp built successfully
+2025-08-14T16:41:49.6030785+10:00 [MauiProgram] === CreateMauiApp entered ===
+2025-08-14T16:41:49.6040072+10:00 [MauiProgram] Process: 29780 PID, FrameworkDescription=.NET 8.0.19
+2025-08-14T16:41:49.6569278+10:00 [MauiProgram] Builder created and fonts configured
+2025-08-14T16:41:49.6615182+10:00 [MauiProgram] Logging service added (DEBUG)
+2025-08-14T16:41:49.8070756+10:00 [MauiProgram] MauiApp built successfully

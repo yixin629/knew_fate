@@ -8,7 +8,7 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = KnewFate
-build_property.ProjectDir = c:\Users\Yixin Zhang\Desktop\knew_fate\
+build_property.ProjectDir = C:\Users\Yixin Zhang\Desktop\knew_fate\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.CsWinRTAotOptimizerEnabled = true
@@ -19,157 +19,157 @@ build_property.CsWinRTCcwLookupTableGeneratorEnabled = true
 build_property.CsWinRTMergeReferencedActivationFactories = 
 build_property.CsWinRTAotWarningLevel = 
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/App.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/App.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.App.xaml
 build_metadata.AdditionalFiles.TargetPath = App.xaml
 build_metadata.AdditionalFiles.RelativePath = App.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/AppShell.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/AppShell.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.AppShell.xaml
 build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
 build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Controls/FloatingAIAssistantButton.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Controls/FloatingAIAssistantButton.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Controls.FloatingAIAssistantButton.xaml
 build_metadata.AdditionalFiles.TargetPath = Controls\FloatingAIAssistantButton.xaml
 build_metadata.AdditionalFiles.RelativePath = Controls\FloatingAIAssistantButton.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/MainPage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/MainPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.MainPage.xaml
 build_metadata.AdditionalFiles.TargetPath = MainPage.xaml
 build_metadata.AdditionalFiles.RelativePath = MainPage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Resources/Styles/Colors.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Resources.Styles.Colors.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Resources/Styles/Styles.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Resources/Styles/Styles.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Resources.Styles.Styles.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/AIAssistantPage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/AIAssistantPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.AIAssistantPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\AIAssistantPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\AIAssistantPage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/AICustomerServiceDashboard.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/AICustomerServiceDashboard.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.AICustomerServiceDashboard.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\AICustomerServiceDashboard.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\AICustomerServiceDashboard.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/CareerPage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/CareerPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.CareerPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\CareerPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\CareerPage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/ChartHubPage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/ChartHubPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.ChartHubPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\ChartHubPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\ChartHubPage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/ChatPage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/ChatPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.ChatPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\ChatPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\ChatPage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/CompatibilityPage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/CompatibilityPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.CompatibilityPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\CompatibilityPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\CompatibilityPage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/CreditsPage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/CreditsPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.CreditsPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\CreditsPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\CreditsPage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/DashboardPage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/DashboardPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.DashboardPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\DashboardPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\DashboardPage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/DiscoveryPage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/DiscoveryPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.DiscoveryPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\DiscoveryPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\DiscoveryPage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/ForgotPasswordPage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/ForgotPasswordPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.ForgotPasswordPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\ForgotPasswordPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\ForgotPasswordPage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/LoginPage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/LoginPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.LoginPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\LoginPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\LoginPage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/MyProfilePage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/MyProfilePage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.MyProfilePage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\MyProfilePage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\MyProfilePage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/OnboardingPage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/OnboardingPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.OnboardingPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\OnboardingPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\OnboardingPage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/PremiumPage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/PremiumPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.PremiumPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\PremiumPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\PremiumPage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/RegisterPage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/RegisterPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.RegisterPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\RegisterPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\RegisterPage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/RelationshipPage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/RelationshipPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.RelationshipPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\RelationshipPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\RelationshipPage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/SettingsPage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/SettingsPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.SettingsPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\SettingsPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\SettingsPage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/TarotPage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/TarotPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.TarotPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\TarotPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\TarotPage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/TimelinePage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/TimelinePage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.TimelinePage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\TimelinePage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\TimelinePage.xaml
 
-[c:/Users/Yixin Zhang/Desktop/knew_fate/Views/UserProfilePage.xaml]
+[C:/Users/Yixin Zhang/Desktop/knew_fate/Views/UserProfilePage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KnewFate.Views.UserProfilePage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\UserProfilePage.xaml

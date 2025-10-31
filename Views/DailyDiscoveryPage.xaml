@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="KnewFate.Views.DailyDiscoveryPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:KnewFate.ViewModels"
+             xmlns:models="clr-namespace:KnewFate.Models"
+             x:DataType="vm:DailyDiscoveryViewModel"
+             Title="{Binding PageTitle}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Converter for inverting boolean -->
+            <x:Boolean x:Key="True">True</x:Boolean>
+            <x:Boolean x:Key="False">False</x:Boolean>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackLayout Grid.Row="0" 
+                    Padding="20,10" 
+                    BackgroundColor="{DynamicResource Primary}">
+            <Label Text="{Binding PageTitle}" 
+                  FontSize="24" 
+                  FontAttributes="Bold" 
+                  TextColor="White" 
+                  HorizontalOptions="Center" />
+            
+            <Label Text="{Binding LastUpdated}"
+                  FontSize="12"
+                  TextColor="White"
+                  Opacity="0.8"
+                  HorizontalOptions="Center"
+                  Margin="0,5,0,0" />
+
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0"
+                      Text="{Binding TotalRecommendations, StringFormat='📋 {0} items today'}"
+                      FontSize="14"
+                      TextColor="White"
+                      VerticalOptions="Center" />
+
+                <Button Grid.Column="1"
+                       Text="🔄"
+                       FontSize="16"
+                       BackgroundColor="Transparent"
+                       TextColor="White"
+                       Command="{Binding RefreshCommand}"
+                       Padding="10,5" />
+            </Grid>
+        </StackLayout>
+
+        <!-- Main Content -->
+        <RefreshView Grid.Row="1"
+                    IsRefreshing="{Binding IsRefreshing}"
+                    Command="{Binding RefreshCommand}">
+            <ScrollView>
+                <StackLayout Padding="15,10">
+                    
+                    <!-- Loading Indicator -->
+                    <ActivityIndicator IsVisible="{Binding IsBusy}"
+                                     IsRunning="{Binding IsBusy}"
+                                     Color="{DynamicResource Primary}"
+                                     HeightRequest="50"
+                                     Margin="0,20" />
+
+                    <!-- Top 10 Section -->
+                    <StackLayout IsVisible="{Binding HasRecommendations}">
+                        <Frame BackgroundColor="{DynamicResource Secondary}"
+                              Padding="15,10"
+                              Margin="0,0,0,10"
+                              CornerRadius="10">
+                            <Label Text="⭐ TOP 10 RECOMMENDATIONS"
+                                  FontSize="16"
+                                  FontAttributes="Bold"
+                                  TextColor="White"
+                                  HorizontalOptions="Center" />
+                        </Frame>
+
+                        <!-- Top 10 Items -->
+                        <CollectionView ItemsSource="{Binding TopTenRecommendations}"
+                                       SelectionMode="None">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:RecommendationItem">
+                                    <Frame Margin="0,5"
+                                          Padding="0"
+                                          CornerRadius="12"
+                                          HasShadow="True"
+                                          BackgroundColor="White">
+                                        
+                                        <!-- Top 10 Badge Overlay -->
+                                        <Grid>
+                                            <Border BackgroundColor="{DynamicResource Primary}"
+                                                   WidthRequest="50"
+                                                   HeightRequest="50"
+                                                   HorizontalOptions="Start"
+                                                   VerticalOptions="Start"
+                                                   Margin="0">
+                                                <Border.StrokeShape>
+                                                    <RoundRectangle CornerRadius="12,0,12,0" />
+                                                </Border.StrokeShape>
+                                                <Label Text="{Binding Rank}"
+                                                      FontSize="20"
+                                                      FontAttributes="Bold"
+                                                      TextColor="White"
+                                                      HorizontalOptions="Center"
+                                                      VerticalOptions="Center" />
+                                            </Border>
+
+                                            <Grid Padding="15,15,15,15">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+
+                                                <!-- Title with Category Icon -->
+                                                <Grid Grid.Row="0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <Label Grid.Column="0"
+                                                          Text="⭐"
+                                                          FontSize="20"
+                                                          Margin="0,0,10,0"
+                                                          VerticalOptions="Center" />
+
+                                                    <Label Grid.Column="1"
+                                                          Text="{Binding Title}"
+                                                          FontSize="16"
+                                                          FontAttributes="Bold"
+                                                          TextColor="{DynamicResource Primary}"
+                                                          VerticalOptions="Center"
+                                                          LineBreakMode="TailTruncation" />
+
+                                                    <Frame Grid.Column="2"
+                                                          BackgroundColor="{DynamicResource Tertiary}"
+                                                          Padding="8,4"
+                                                          CornerRadius="12"
+                                                          HasShadow="False">
+                                                        <Label Text="{Binding Category}"
+                                                              FontSize="10"
+                                                              TextColor="White"
+                                                              FontAttributes="Bold" />
+                                                    </Frame>
+                                                </Grid>
+
+                                                <!-- Description -->
+                                                <Label Grid.Row="1"
+                                                      Text="{Binding Description}"
+                                                      FontSize="14"
+                                                      TextColor="{DynamicResource Gray600}"
+                                                      LineBreakMode="WordWrap"
+                                                      MaxLines="3"
+                                                      Margin="0,10,0,0" />
+
+                                                <!-- Score Bar -->
+                                                <Grid Grid.Row="2" Margin="0,10,0,0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <Label Grid.Column="0"
+                                                          Text="Relevance:"
+                                                          FontSize="12"
+                                                          TextColor="{DynamicResource Gray500}"
+                                                          VerticalOptions="Center"
+                                                          Margin="0,0,10,0" />
+
+                                                    <ProgressBar Grid.Column="1"
+                                                                Progress="{Binding Score, Converter={StaticResource PercentConverter}}"
+                                                                ProgressColor="{DynamicResource Primary}"
+                                                                HeightRequest="8"
+                                                                VerticalOptions="Center" />
+
+                                                    <Label Grid.Column="2"
+                                                          Text="{Binding Score, StringFormat='{0:F0}%'}"
+                                                          FontSize="12"
+                                                          FontAttributes="Bold"
+                                                          TextColor="{DynamicResource Primary}"
+                                                          VerticalOptions="Center"
+                                                          Margin="10,0,0,0" />
+                                                </Grid>
+
+                                                <!-- Action Button -->
+                                                <Button Grid.Row="3"
+                                                       Text="View Details"
+                                                       BackgroundColor="{DynamicResource Primary}"
+                                                       TextColor="White"
+                                                       CornerRadius="8"
+                                                       Margin="0,10,0,0"
+                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DailyDiscoveryViewModel}}, Path=ViewRecommendationCommand}"
+                                                       CommandParameter="{Binding .}" />
+                                            </Grid>
+                                        </Grid>
+
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer 
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DailyDiscoveryViewModel}}, Path=ViewRecommendationCommand}"
+                                                CommandParameter="{Binding .}" />
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <!-- All Other Recommendations -->
+                        <Frame BackgroundColor="{DynamicResource Gray200}"
+                              Padding="15,10"
+                              Margin="0,20,0,10"
+                              CornerRadius="10">
+                            <Label Text="📋 OTHER RECOMMENDATIONS"
+                                  FontSize="14"
+                                  FontAttributes="Bold"
+                                  TextColor="{DynamicResource Gray700}"
+                                  HorizontalOptions="Center" />
+                        </Frame>
+
+                        <CollectionView ItemsSource="{Binding Recommendations}"
+                                       SelectionMode="None">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:RecommendationItem">
+                                    <!-- Only show items NOT in top 10 -->
+                                    <Frame IsVisible="{Binding IsTopTen, Converter={StaticResource InvertBoolConverter}}"
+                                          Margin="0,5"
+                                          Padding="12"
+                                          CornerRadius="10"
+                                          HasShadow="False"
+                                          BackgroundColor="{DynamicResource Gray100}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- Rank Badge -->
+                                            <Label Grid.Column="0"
+                                                  Text="{Binding Rank, StringFormat='#{0}'}"
+                                                  FontSize="14"
+                                                  FontAttributes="Bold"
+                                                  TextColor="{DynamicResource Gray600}"
+                                                  VerticalOptions="Center"
+                                                  Margin="0,0,10,0" />
+
+                                            <!-- Content -->
+                                            <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                                <Label Text="{Binding Title}"
+                                                      FontSize="14"
+                                                      FontAttributes="Bold"
+                                                      TextColor="{DynamicResource Gray900}"
+                                                      LineBreakMode="TailTruncation" />
+                                                
+                                                <Label Text="{Binding Description}"
+                                                      FontSize="12"
+                                                      TextColor="{DynamicResource Gray600}"
+                                                      LineBreakMode="TailTruncation"
+                                                      Margin="0,2,0,0" />
+                                            </StackLayout>
+
+                                            <!-- Category Badge -->
+                                            <Frame Grid.Column="2"
+                                                  BackgroundColor="{DynamicResource Gray300}"
+                                                  Padding="6,3"
+                                                  CornerRadius="8"
+                                                  HasShadow="False"
+                                                  VerticalOptions="Center">
+                                                <Label Text="{Binding Category}"
+                                                      FontSize="9"
+                                                      TextColor="{DynamicResource Gray700}"
+                                                      FontAttributes="Bold" />
+                                            </Frame>
+                                        </Grid>
+
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer 
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DailyDiscoveryViewModel}}, Path=ViewRecommendationCommand}"
+                                                CommandParameter="{Binding .}" />
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+
+                    <!-- Empty State -->
+                    <StackLayout IsVisible="{Binding IsEmpty}"
+                               VerticalOptions="Center"
+                               Margin="0,50"
+                               Padding="20">
+                        <Label Text="📭"
+                              FontSize="64"
+                              HorizontalOptions="Center"
+                              TextColor="{DynamicResource Gray400}" />
+                        
+                        <Label Text="No Recommendations Today"
+                              FontSize="20"
+                              FontAttributes="Bold"
+                              HorizontalOptions="Center"
+                              TextColor="{DynamicResource Gray600}"
+                              Margin="0,20,0,5" />
+                        
+                        <Label Text="Check back tomorrow for new discoveries!"
+                              FontSize="14"
+                              HorizontalOptions="Center"
+                              TextColor="{DynamicResource Gray500}"
+                              Margin="0,0,0,20" />
+                        
+                        <Button Text="Refresh"
+                               Command="{Binding RefreshCommand}"
+                               BackgroundColor="{DynamicResource Primary}"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               WidthRequest="150" />
+                    </StackLayout>
+
+                </StackLayout>
+            </ScrollView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

@@ -271,5 +271,7 @@
     <local:BoolToColorConverter x:Key="BoolToColorConverter" 
                                TrueColor="{StaticResource Primary}" 
                                FalseColor="Transparent" />
+    <local:BooleanInverterConverter x:Key="InvertBoolConverter" />
+    <local:PercentToProgressConverter x:Key="PercentConverter" />
 
 </ResourceDictionary>

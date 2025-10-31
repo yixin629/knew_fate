@@ -29,6 +29,12 @@
                       ContentTemplate="{DataTemplate local:DiscoveryPage}" />
     </FlyoutItem>
 
+    <FlyoutItem Title="Daily Discoveries" 
+                Icon="star.png">
+        <ShellContent Route="dailydiscovery" 
+                      ContentTemplate="{DataTemplate local:DailyDiscoveryPage}" />
+    </FlyoutItem>
+
     <FlyoutItem Title="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[ChartHub]}" 
                 Icon="chart.png">
         <ShellContent Route="charthub" 

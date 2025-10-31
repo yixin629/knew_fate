@@ -340,6 +340,32 @@ public class EnergyIndicator
     public string Color { get; set; } = string.Empty;
 }
 
+// Daily Recommendation Models
+public class RecommendationItem
+{
+    public int Id { get; set; }
+    public string Title { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public string Category { get; set; } = string.Empty; // User, Reading, Insight, Event
+    public double Score { get; set; } // Relevance score (0-100)
+    public bool IsTopTen { get; set; }
+    public int Rank { get; set; } // 1-based ranking
+    public DateTime CreatedAt { get; set; }
+    public string ImageUrl { get; set; } = string.Empty;
+    public string ActionUrl { get; set; } = string.Empty; // Navigation target
+    public Dictionary<string, string> Metadata { get; set; } = new();
+}
+
+public class DailyRecommendationList
+{
+    public int Id { get; set; }
+    public int UserId { get; set; }
+    public DateTime Date { get; set; }
+    public List<RecommendationItem> Items { get; set; } = new();
+    public DateTime GeneratedAt { get; set; }
+    public DateTime? ViewedAt { get; set; }
+}
+
 // Purchase and Subscription Models
 public class Purchase
 {

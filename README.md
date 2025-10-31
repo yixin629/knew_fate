@@ -18,6 +18,7 @@ KnewFate is a comprehensive cross-platform fortune telling application built wit
 - **职业指导 (Career Guidance)** - Professional path recommendations
 - **时间线预测 (Timeline Predictions)** - Life phase analysis and important dates
 - **每日运势 (Daily Fortune)** - Daily energy readings and guidance
+- **每日发现 (Daily Discoveries)** - Personalized daily recommendations with top 10 highlighting
 
 ### Multi-Language Support / 多语言支持
 - **中文 (简体)** - Simplified Chinese
@@ -105,6 +106,13 @@ dotnet run --framework net8.0-windows    # For Windows
 - Multiple spread options / 多种牌阵选择
 - Detailed card interpretations / 详细的牌意解释
 - Reading history and journal / 占卜历史和日志
+
+#### Daily Discoveries / 每日发现
+- Personalized daily recommendations / 个性化每日推荐
+- Top 10 items prominently highlighted / 前10项显著标记
+- Multiple categories (Users, Readings, Insights, Events) / 多个类别（用户、占卜、见解、活动）
+- Smart relevance scoring / 智能相关性评分
+- See [DAILY_DISCOVERIES_README.md](DAILY_DISCOVERIES_README.md) for details / 详见说明文档
 
 ### Language Switching / 语言切换
 - Access Settings from any page / 从任何页面访问设置

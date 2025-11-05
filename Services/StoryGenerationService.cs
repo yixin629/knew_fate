@@ -45,6 +45,8 @@ public class StoryGenerationService : IStoryGenerationService
     private readonly ILocalizationService _localizationService;
     
     // 免费开源API配置
+    // 注意：这些是占位符，实际使用时需要配置真实的API Key
+    // 推荐使用环境变量或安全配置来存储API Key
     private readonly string[] _freeApiEndpoints = {
         "https://api.groq.com/openai/v1/chat/completions",
         "https://api.together.xyz/v1/chat/completions",
@@ -54,10 +56,12 @@ public class StoryGenerationService : IStoryGenerationService
     
     private readonly Dictionary<string, string> _apiKeys = new()
     {
-        ["groq"] = "gsk_free_api_key_here",
-        ["together"] = "together_free_key_here",
-        ["deepseek"] = "deepseek_free_key_here",
-        ["zhipu"] = "zhipu_free_key_here"
+        // TODO: 从环境变量或安全配置中加载API Key
+        // 格式: Environment.GetEnvironmentVariable("GROQ_API_KEY") ?? ""
+        ["groq"] = Environment.GetEnvironmentVariable("GROQ_API_KEY") ?? "",
+        ["together"] = Environment.GetEnvironmentVariable("TOGETHER_API_KEY") ?? "",
+        ["deepseek"] = Environment.GetEnvironmentVariable("DEEPSEEK_API_KEY") ?? "",
+        ["zhipu"] = Environment.GetEnvironmentVariable("ZHIPU_API_KEY") ?? ""
     };
     
     // 内存中的故事数据库（简单实现）
@@ -433,9 +437,10 @@ public class StoryGenerationService : IStoryGenerationService
 
     private async Task<string> CallSpecificAPIAsync(string endpoint, string apiKey, string prompt)
     {
-        if (string.IsNullOrEmpty(apiKey) || apiKey.Contains("_key_here"))
+        // 验证API Key是否有效（不为空且不是占位符）
+        if (string.IsNullOrEmpty(apiKey))
         {
-            throw new ArgumentException("API Key未配置");
+            throw new ArgumentException($"API Key未配置。请设置相应的环境变量（如 GROQ_API_KEY）");
         }
 
         var requestBody = new

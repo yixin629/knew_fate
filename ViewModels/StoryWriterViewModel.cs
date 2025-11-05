@@ -12,6 +12,9 @@ namespace KnewFate.ViewModels;
 public partial class StoryWriterViewModel : BaseViewModel
 {
     private readonly IStoryGenerationService _storyService;
+    
+    // 常量配置
+    private const int ContentPreviewLength = 500; // 内容预览长度
 
     [ObservableProperty]
     private Story currentStory;
@@ -186,8 +189,8 @@ public partial class StoryWriterViewModel : BaseViewModel
         // 显示章节内容
         await Application.Current.MainPage.DisplayAlert(
             $"第{chapter.ChapterNumber}章：{chapter.Title}",
-            chapter.Content.Length > 500 
-                ? chapter.Content.Substring(0, 500) + "...\n\n（内容较长，请在详情页查看完整内容）"
+            chapter.Content.Length > ContentPreviewLength 
+                ? chapter.Content.Substring(0, ContentPreviewLength) + "...\n\n（内容较长，请在详情页查看完整内容）"
                 : chapter.Content,
             "关闭");
     }
@@ -227,11 +230,12 @@ public partial class StoryWriterViewModel : BaseViewModel
                 content.AppendLine("-" + new string('-', 50));
             }
 
-            // 这里可以实现文件保存功能
-            // 目前先显示在对话框中
+            // TODO: 实现实际的文件保存功能
+            // 目前仅在对话框中显示导出成功消息
+            // 未来可以使用 FileSaver 或 MAUI 文件选择器保存到本地
             await Application.Current.MainPage.DisplayAlert(
                 "导出成功",
-                $"已导出{Chapters.Count}章，共{content.Length}字",
+                $"已导出{Chapters.Count}章，共{content.Length}字\n\n注意：实际文件保存功能待实现",
                 "确定");
 
             StatusMessage = $"导出成功：{Chapters.Count}章";

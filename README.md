@@ -18,6 +18,14 @@ KnewFate is a comprehensive cross-platform fortune telling application built wit
 - **职业指导 (Career Guidance)** - Professional path recommendations
 - **时间线预测 (Timeline Predictions)** - Life phase analysis and important dates
 - **每日运势 (Daily Fortune)** - Daily energy readings and guidance
+- **小说创作助手 (Story Generation)** - AI-powered Chinese novel writing assistant
+
+### Creative Writing / 创意写作
+- **AI Story Generation** - Automated chapter generation for Chinese web novels
+- **Story Management** - Track chapters, word counts, and progress
+- **Export Function** - Export complete novels for publication
+- **Contextual Writing** - Maintains story continuity across chapters
+- For detailed documentation, see [STORY_GENERATION_GUIDE.md](STORY_GENERATION_GUIDE.md)
 
 ### Multi-Language Support / 多语言支持
 - **中文 (简体)** - Simplified Chinese

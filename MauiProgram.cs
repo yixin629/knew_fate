@@ -56,6 +56,7 @@ public static class MauiProgram
         // AI Services
         builder.Services.AddHttpClient<IAIService, AIService>();
         builder.Services.AddSingleton<IAICustomerService, AICustomerService>();
+        builder.Services.AddHttpClient<IStoryGenerationService, StoryGenerationService>();
         // 暂时注释掉占星服务直到定义了相关类型
         // builder.Services.AddSingleton<ZodiacService>(); // Base zodiac service
         // builder.Services.AddSingleton<IZodiacService, AIEnhancedZodiacService>(); // AI-enhanced wrapper
@@ -86,6 +87,7 @@ public static class MauiProgram
         builder.Services.AddTransient<LoginViewModel>();
         builder.Services.AddTransient<RegisterViewModel>();
         builder.Services.AddTransient<ForgotPasswordViewModel>();
+        builder.Services.AddTransient<StoryWriterViewModel>();
 
         // Register Views
         builder.Services.AddTransient<MainPage>();
@@ -105,6 +107,7 @@ public static class MauiProgram
         builder.Services.AddTransient<LoginPage>();
         builder.Services.AddTransient<RegisterPage>();
         builder.Services.AddTransient<ForgotPasswordPage>();
+        builder.Services.AddTransient<StoryWriterPage>();
 
         // Configure Localization
         builder.Services.AddLocalization();

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:KnewFate.ViewModels"
+             x:Class="KnewFate.Views.StoryWriterPage"
+             x:DataType="viewmodels:StoryWriterViewModel"
+             Title="小说创作助手">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="刷新" Command="{Binding RefreshCommand}" />
+        <ToolbarItem Text="导出" Command="{Binding ExportChaptersCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto,*" Padding="0">
+        
+        <!-- Header Section -->
+        <Frame Grid.Row="0" 
+               BackgroundColor="{StaticResource Primary}" 
+               CornerRadius="0" 
+               Padding="20"
+               HasShadow="True">
+            <StackLayout Spacing="10">
+                <Label Text="{Binding CurrentStory.Title, FallbackValue='小说创作助手'}"
+                       TextColor="White"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"/>
+                
+                <Label Text="{Binding CurrentStory.Outline, FallbackValue='准备开始创作...'}"
+                       TextColor="White"
+                       FontSize="14"
+                       HorizontalOptions="Center"
+                       LineBreakMode="WordWrap"
+                       MaxLines="3"/>
+                
+                <Label Text="{Binding StatusMessage, FallbackValue='准备就绪'}"
+                       TextColor="White"
+                       FontSize="12"
+                       HorizontalOptions="Center"
+                       Margin="0,5,0,0"/>
+                
+                <Grid ColumnDefinitions="*,Auto,*" 
+                      ColumnSpacing="10" 
+                      Margin="0,10,0,0">
+                    <Label Grid.Column="0" 
+                           Text="{Binding Chapters.Count, StringFormat='已有章节：{0}'}"
+                           TextColor="White"
+                           FontSize="14"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center"/>
+                    
+                    <BoxView Grid.Column="1" 
+                             WidthRequest="1" 
+                             HeightRequest="20" 
+                             Color="White" 
+                             VerticalOptions="Center"/>
+                    
+                    <Label Grid.Column="2" 
+                           Text="{Binding CurrentStory.Status, StringFormat='状态：{0}'}"
+                           TextColor="White"
+                           FontSize="14"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Center"/>
+                </Grid>
+            </StackLayout>
+        </Frame>
+
+        <!-- Main Content -->
+        <ScrollView Grid.Row="1">
+            <StackLayout Padding="20" Spacing="20">
+                
+                <!-- Control Panel -->
+                <Frame BackgroundColor="White" 
+                       CornerRadius="15" 
+                       Padding="20"
+                       HasShadow="True">
+                    <StackLayout Spacing="15">
+                        <Label Text="创作控制台"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               HorizontalOptions="Center"/>
+                        
+                        <Grid ColumnDefinitions="Auto,*" 
+                              RowDefinitions="Auto,Auto,Auto"
+                              RowSpacing="15"
+                              ColumnSpacing="10">
+                            
+                            <Label Grid.Row="0" Grid.Column="0"
+                                   Text="每次生成章节数："
+                                   VerticalOptions="Center"
+                                   FontSize="16"/>
+                            <Stepper Grid.Row="0" Grid.Column="1"
+                                     Value="{Binding ChaptersToGenerate}"
+                                     Minimum="1"
+                                     Maximum="5"
+                                     Increment="1"
+                                     HorizontalOptions="Start"/>
+                            <Label Grid.Row="0" Grid.Column="1"
+                                   Text="{Binding ChaptersToGenerate, StringFormat='{0} 章'}"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="End"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}"/>
+                        </Grid>
+                        
+                        <Button Text="✨ 生成新章节"
+                                Command="{Binding GenerateChaptersCommand}"
+                                IsEnabled="{Binding IsGenerating, Converter={StaticResource InvertedBoolConverter}}"
+                                BackgroundColor="{StaticResource Primary}"
+                                TextColor="White"
+                                FontSize="18"
+                                FontAttributes="Bold"
+                                CornerRadius="10"
+                                HeightRequest="50"/>
+                        
+                        <ActivityIndicator IsRunning="{Binding IsGenerating}"
+                                         IsVisible="{Binding IsGenerating}"
+                                         Color="{StaticResource Primary}"
+                                         HeightRequest="40"/>
+                        
+                        <Label Text="提示：点击「生成新章节」按钮，AI将根据故事大纲和已有内容续写新章节。"
+                               FontSize="12"
+                               TextColor="Gray"
+                               HorizontalOptions="Center"
+                               LineBreakMode="WordWrap"
+                               HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                </Frame>
+
+                <!-- Chapters List -->
+                <Frame BackgroundColor="White" 
+                       CornerRadius="15" 
+                       Padding="20"
+                       HasShadow="True">
+                    <StackLayout Spacing="15">
+                        <Label Text="已生成章节"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               HorizontalOptions="Center"/>
+                        
+                        <CollectionView ItemsSource="{Binding Chapters}"
+                                      SelectionMode="Single"
+                                      SelectedItem="{Binding SelectedChapter}"
+                                      EmptyView="暂无章节，点击上方按钮开始创作">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Padding="15" 
+                                           Margin="0,5" 
+                                           BackgroundColor="{StaticResource Secondary}"
+                                           CornerRadius="10"
+                                           HasShadow="False">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer 
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:StoryWriterViewModel}}, Path=ViewChapterCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                        </Frame.GestureRecognizers>
+                                        
+                                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="15">
+                                            <BoxView Grid.Column="0"
+                                                   WidthRequest="4"
+                                                   HeightRequest="60"
+                                                   Color="{StaticResource Primary}"
+                                                   VerticalOptions="Center"/>
+                                            
+                                            <StackLayout Grid.Column="1" 
+                                                       VerticalOptions="Center"
+                                                       Spacing="5">
+                                                <Label Text="{Binding ChapterNumber, StringFormat='第 {0} 章'}"
+                                                     FontSize="12"
+                                                     TextColor="Gray"/>
+                                                <Label Text="{Binding Title}"
+                                                     FontSize="16"
+                                                     FontAttributes="Bold"
+                                                     TextColor="{StaticResource Primary}"/>
+                                                <Label Text="{Binding WordCount, StringFormat='字数：{0}'}"
+                                                     FontSize="12"
+                                                     TextColor="Gray"/>
+                                            </StackLayout>
+                                            
+                                            <Label Grid.Column="2"
+                                                 Text="👁"
+                                                 FontSize="24"
+                                                 VerticalOptions="Center"/>
+                                        </Grid>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </Frame>
+
+                <!-- Quick Stats -->
+                <Frame BackgroundColor="White" 
+                       CornerRadius="15" 
+                       Padding="20"
+                       HasShadow="True">
+                    <StackLayout Spacing="10">
+                        <Label Text="创作统计"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               HorizontalOptions="Center"/>
+                        
+                        <Grid ColumnDefinitions="*,*,*" 
+                              RowDefinitions="Auto,Auto"
+                              RowSpacing="10"
+                              ColumnSpacing="10">
+                            
+                            <StackLayout Grid.Row="0" Grid.Column="0" Spacing="5">
+                                <Label Text="{Binding Chapters.Count}"
+                                     FontSize="24"
+                                     FontAttributes="Bold"
+                                     TextColor="{StaticResource Primary}"
+                                     HorizontalOptions="Center"/>
+                                <Label Text="章节数"
+                                     FontSize="12"
+                                     TextColor="Gray"
+                                     HorizontalOptions="Center"/>
+                            </StackLayout>
+                            
+                            <StackLayout Grid.Row="0" Grid.Column="1" Spacing="5">
+                                <Label Text="{Binding CurrentStory.Status}"
+                                     FontSize="24"
+                                     FontAttributes="Bold"
+                                     TextColor="{StaticResource Primary}"
+                                     HorizontalOptions="Center"/>
+                                <Label Text="状态"
+                                     FontSize="12"
+                                     TextColor="Gray"
+                                     HorizontalOptions="Center"/>
+                            </StackLayout>
+                            
+                            <StackLayout Grid.Row="0" Grid.Column="2" Spacing="5">
+                                <Label Text="{Binding CurrentStory.UpdatedAt, StringFormat='{0:MM/dd}'}"
+                                     FontSize="24"
+                                     FontAttributes="Bold"
+                                     TextColor="{StaticResource Primary}"
+                                     HorizontalOptions="Center"/>
+                                <Label Text="最后更新"
+                                     FontSize="12"
+                                     TextColor="Gray"
+                                     HorizontalOptions="Center"/>
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+                </Frame>
+
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>

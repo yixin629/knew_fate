@@ -71,6 +71,12 @@
                       ContentTemplate="{DataTemplate local:AICustomerServiceDashboard}" />
     </FlyoutItem>
 
+    <FlyoutItem Title="小说创作助手" 
+                Icon="edit.png">
+        <ShellContent Route="story_writer" 
+                      ContentTemplate="{DataTemplate local:StoryWriterPage}" />
+    </FlyoutItem>
+
     <FlyoutItem Title="{Binding Source={x:Static local:LocalizationHelper.Instance}, Path=[Settings]}" 
                 Icon="settings.png">
         <ShellContent Route="settings" 

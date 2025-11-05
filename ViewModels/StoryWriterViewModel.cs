@@ -209,7 +209,7 @@ public partial class StoryWriterViewModel : BaseViewModel
             IsBusy = true;
             StatusMessage = "正在导出...";
 
-            var content = System.Text.StringBuilder.Create();
+            var content = new System.Text.StringBuilder();
             content.AppendLine($"《{CurrentStory.Title}》");
             content.AppendLine();
             content.AppendLine($"故事大纲：{CurrentStory.Outline}");
